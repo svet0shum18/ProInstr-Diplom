@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>ProInstrument</title>
   <!-- BOOTSTRAP -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -82,7 +83,6 @@
               <div class="header-middle_logo d-flex align-items-center h-100">
                 <a href="{{ url('/') }}"><img src="/assets/img/chrlogo.svg" alt="logo" id="header-logo"></a>
               </div>
-              
             </div>
 
             <div class="col-md-6">
@@ -112,7 +112,7 @@
                     <li><a class="dropdown-item" href="#">Электро-инструменты</a></li>
                   </ul>
                 </div>
-                <a class="nav-link" href="{{ route('cart') }}">Корзина</a>
+                <a class="nav-link" href="{{ route('cart.index') }}">Корзина</a>
                 <a class="nav-link" href="#">Избранное</a>
                 <a class="nav-link" href="#"><i class="fa-solid fa-circle-question fa-lg"></i></a>
               </div>
@@ -148,6 +148,25 @@
         @endif -->
 
 
+        <!-- <nav class="mobile-bottom-nav bg-white border-top">
+  <div class="d-flex justify-content-around text-center py-2">
+    <a href="/home" class="text-decoration-none text-dark">
+      <i class="fa-solid fa-house fa-lg"></i><br><small>Главная</small>
+    </a>
+    <a href="/shops" class="text-decoration-none text-dark">
+      <i class="fa-solid fa-store fa-lg"></i><br><small>Магазины</small>
+    </a>
+    <a href="/catalog" class="text-decoration-none text-dark">
+      <i class="fa-solid fa-list fa-lg"></i><br><small>Каталог</small>
+    </a>
+    <a href="/cart" class="text-decoration-none text-dark position-relative">
+      <i class="fa-solid fa-cart-shopping fa-lg"></i><br><small>Корзина</small>
+    </a>
+    <a href="/profile" class="text-decoration-none text-dark">
+      <i class="fa-solid fa-user fa-lg"></i><br><small>Профиль</small>
+    </a>
+  </div>
+</nav> -->
 
         @yield('content')
         </div>
@@ -198,7 +217,10 @@
     </div>
   </footer>
   </div>
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 </html>

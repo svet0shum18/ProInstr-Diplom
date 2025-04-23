@@ -55,10 +55,7 @@
 
       <div class="btn-position">
       <button type="submit" class="btn-auth">Зарегистрироваться</button>
-      <p class="mt-3 text-center">
-      Уже зарегистрированы?
-      <a href="/login" class="text-primary text-decoration-underline">Войти</a>
-      </p>
+     
       </div>
 
     </form>

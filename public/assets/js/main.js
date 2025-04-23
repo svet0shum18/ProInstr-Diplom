@@ -78,3 +78,102 @@ const slider = document.getElementById('brandSlider');
       icon.classList.add('fa-eye');
     }
   }
+
+
+
+  // КОРЗИНА
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const productId = this.dataset.id;
+
+        // Прямо создаём URL вручную
+        const url = `/cart/add/${productId}`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({ product_id: productId })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("HTTP error " + response.status);
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Произошла ошибка при добавлении товара в корзину.');
+        });
+    });
+});
+
+
+
+function changeQuantity(itemId, changeValue) {
+  fetch(`/cart/update/${itemId}`, {
+      method: 'POST',
+      headers: {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ change: changeValue })
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          // Обновляем количество товара в корзине
+          document.getElementById(`quantity-${itemId}`).textContent = data.new_quantity;
+          // Обновляем итоговую сумму
+          document.getElementById(`total-${itemId}`).textContent = data.new_total + ' ₽';
+          // Обновляем итоговую сумму всех товаров
+          document.getElementById('total-sum').textContent = data.total_sum + ' ₽';
+      } else {
+          console.error('Ошибка:', data.message || 'Не удалось обновить количество');
+          alert('Ошибка при изменении количества товара');
+      }
+  })
+  .catch(error => {
+      console.error('Ошибка:', error);
+      alert('Что-то пошло не так!');
+  });
+}
+
+
+$(document).ready(function() {
+  // Обработчик удаления товара из корзины
+  $('.delete-form').on('submit', function(e) {
+      e.preventDefault();
+      var form = $(this);
+      var itemId = form.closest('tr').attr('id').split('-')[2]; // Получаем ID товара из строки таблицы
+
+      $.ajax({
+          url: form.attr('action'),
+          method: 'POST',
+          data: form.serialize(), // Отправляем данные формы (CSRF токен и метод DELETE)
+          success: function(response) {
+              if (response.success) {
+                  // Удаляем товар из таблицы
+                  $('#cart-item-' + itemId).remove();
+
+                  // Обновляем общую сумму корзины
+                  $('#total-sum').text(response.total_sum + ' ₽');
+              } else {
+                  alert('Ошибка при удалении товара');
+              }
+          },
+          error: function() {
+              alert('Произошла ошибка');
+          }
+      });
+  });
+});
+
+

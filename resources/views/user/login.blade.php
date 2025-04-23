@@ -44,7 +44,7 @@
       
       <div class="btn-position">
       <button type="submit" class="btn-auth">Войти</button>
-      <p class="mt-3 text-center">
+      <p class="mt-3 text-center" id="frgt-psswrd">
         Забыли пароль?
         <a href="{{ route('password.request') }}" class="text-primary text-decoration-underline">Восстановить</a>
       </p>

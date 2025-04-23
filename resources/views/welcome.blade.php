@@ -188,10 +188,11 @@
                 <a href="#"><h3 class="product-name">{{ $product->name }}</h3></a>
                 <p class="product-description">{{ $product->description }}</p>
                 <p class="product-price">Цена:  {{ $product->price }} ₽</p>
+                <!-- <p class="product-price">Количество:  {{ $product->quantity }} шт.</p> -->
               </div>
               <form action="{{ route('cart.add', $product->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="add-to-cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                    <button type="submit" class="add-to-cart" data-id="{{ $product->id }}"><i class="fa-solid fa-cart-shopping"></i></button>
                 </form>
             </div>
             @endforeach
