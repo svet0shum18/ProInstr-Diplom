@@ -155,6 +155,7 @@ ul.navbar {
 }
 
 .nav-link {
+  color: var(--contrast-color);
   font-weight: bold;
   transition: all .3s;
 }
@@ -580,6 +581,40 @@ footer p {
 }
 
 
+
+/* ЛИЧНЫЙ КАБИНЕТ */
+.profile-card {
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.profile-info {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.bonus-badge {
+  background-color: #ffc107;
+  color: #000;
+}
+
+#quant {
+  margin-left: 8px;
+  background-color: var(--yellow-color); 
+  
+}
+
+
+.modal-backdrop {
+  z-index: 1040 !important;
+}
+.modal {
+  z-index: 1050 !important;
+}
+body.modal-open {
+  overflow: auto !important;
+  padding-right: 0 !important;
+}
 /*================================= ADAPTIV =====================================*/
 /* 
 .mobile-bottom-nav {

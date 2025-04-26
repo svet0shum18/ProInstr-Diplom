@@ -50,21 +50,49 @@ class UserController extends Controller
 
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))){
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard')->with('succsess', 'Добро пожаловать,'. Auth::user()->name);
+            
+            // Проверяем, является ли пользователь администратором
+            if (Auth::user()->is_admin) {
+                return redirect()->intended(route('admin.dashboard'))->with('success', 'Добро пожаловать, '. Auth::user()->name);
+            }
+            
+            return redirect()->intended(route('dashboard'));
         }
+
+
+
 
         return back()->withErrors([
             'email' => 'Неверный логин или пароль'
         ]);
     }
 
+
     public function logout() 
     {
         Auth::logout();
         return redirect()->route('login');
     }
+
+    public function destroy(Request $request)
+{
+    $request->validate([
+        'password' => ['required', 'current_password'],
+    ]);
+
+    $user = $request->user();
+
+    Auth::logout();
+
+    $user->delete();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/')->with('status', 'Ваш аккаунт успешно удален.');
+}
 
 
     public function forgotPasswordStore(Request $request)
@@ -106,6 +134,26 @@ class UserController extends Controller
                     ? redirect()->route('login')->with('success', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
     }
+
+
+
+    // СМЕНА ИМЕНИ В КАБИНЕТЕ
+    public function updateName(Request $request)
+{
+    $request->validate( [
+        'name' => 'required|string|max:255|min:2',
+    ]);
+
+
+    $user = Auth::user();
+    $user->name = $request->name;
+    $user->save();
+
+    return response()->json([
+        'success' => true,
+        'name' => $user->name
+    ]);
+}
 
 
     public function dashboard()

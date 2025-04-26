@@ -46,4 +46,14 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
             'password' => 'hashed',
         ];
     }
+
+    public function cartItems()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function getCartCountAttribute()
+    {
+        return $this->cartItems()->sum('quantity');
+    }
 }

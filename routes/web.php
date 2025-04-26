@@ -4,8 +4,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Models\Product;
 
@@ -14,8 +13,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// ROOTIK
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::put('/dashboard/update-name', [UserController::class, 'updateName'])->name('dashboard.update.name');
+    Route::delete('/profile/delete', [UserController::class, 'destroy'])->name('profile.destroy');
 
     // КОРЗИНА
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
