@@ -47,8 +47,12 @@ class CartController extends Controller
         $totalSum = $cartItems->sum(function ($item) {
             return $item->quantity * $item->product->price;
         });
-
-        return view('cart.index', compact('cartItems', 'totalSum'));
+        
+        return view('cart.index', [
+            'cartItems' => $cartItems,
+            'totalSum' => $totalSum,
+            'isEmpty' => $cartItems->isEmpty() // Добавляем флаг пустой корзины
+        ]);
     }
 
 

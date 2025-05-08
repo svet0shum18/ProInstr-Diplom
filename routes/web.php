@@ -1,17 +1,36 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OneCExchangeController;
 use App\Models\Product;
 
+
+Route::get('/test-1c-access', function () {
+    $path = storage_path('app/1c_exchange/test.txt');
+
+    try {
+        file_put_contents($path, 'Тест успешен: Laravel может писать в 1c_exchange!');
+        return '✅ Файл успешно создан: ' . $path;
+    } catch (\Exception $e) {
+        return '❌ Ошибка: ' . $e->getMessage();
+    }
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// ИНТЕГРАЦИЯ С 1АСС
+
+Route::match(['get', 'post'], '/exchange.php', [OneCExchangeController::class, 'handle']);
 
 // ROOTIK
 Route::middleware(['auth', 'is_admin'])->group(function () {
@@ -30,10 +49,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // КОРЗИНА
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-    
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.orderuser');
+  
+
+    // СОХРАНЕНИЕ АДРЕСА ДОСТАВКИ
+    Route::get('/get-saved-delivery-data', [OrderController::class, 'getLast'])->name('delivery.last');
+
 
     Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+    // ИЗБАРННОЕ
+    Route::post('/favorite/{product}', [FavoriteController::class, 'addFavorite'])->name('favorite.add');
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+    Route::delete('/favorite/{product}', [FavoriteController::class, 'remove'])->name('favorite.remove');
+
 
 });
 

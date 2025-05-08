@@ -48,37 +48,37 @@
               <div class="d-flex justify-content-end">
                 <div class="dropdown">
                   @auth
-            <!-- Для авторизованных пользователей -->
+              <!-- Для авторизованных пользователей -->
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" id="btn-account">
+              {{ auth()->user()->name }}
+              </button>
+              <ul class="dropdown-menu">
+              <li>
+                @if(auth()->user()->is_admin)
+            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Панель админа</a>
+          @else
+            <a class="dropdown-item" href="{{ route('dashboard') }}">Личный кабинет</a>
+          @endif
+              </li>
+              <li>
+                <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="dropdown-item">Выйти</button>
+                </form>
+              </li>
+              </ul>
+          @else
+            <!-- Для неавторизованных пользователей -->
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false" id="btn-account">
-            {{ auth()->user()->name }}
+            Аккаунт
             </button>
             <ul class="dropdown-menu">
-            <li>
-              @if(auth()->user()->is_admin)
-          <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Панель админа</a>
-        @else
-        <a class="dropdown-item" href="{{ route('dashboard') }}">Личный кабинет</a>
-      @endif
-            </li>
-            <li>
-              <form method="POST" action="{{ route('logout') }}">
-              @csrf
-              <button type="submit" class="dropdown-item">Выйти</button>
-              </form>
-            </li>
+            <li><a class="dropdown-item" href="{{ route('login') }}">Вход</a></li>
+            <li><a class="dropdown-item" href="{{ route('register') }}">Регистрация</a></li>
             </ul>
-          @else
-        <!-- Для неавторизованных пользователей -->
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-        aria-expanded="false" id="btn-account">
-        Аккаунт
-        </button>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{ route('login') }}">Вход</a></li>
-        <li><a class="dropdown-item" href="{{ route('register') }}">Регистрация</a></li>
-        </ul>
-      @endauth
+          @endauth
                 </div>
               </div>
             </div>
@@ -136,7 +136,15 @@
             </span>
           @endauth
                 </a>
-                <a class="nav-link" href="#">Избранное</a>
+                <a class="nav-link" href="{{ route('favorite.index') }}">
+                  Избранное
+                  @auth
+            <span class="position-absolute translate-middle badge rounded-pill" id="quant">
+            {{ auth()->user()->favorites_count }}  <!-- Подсчитанное количество товаров в избранном -->
+            <span class="visually-hidden">товаров в избранном</span>
+            </span>
+          @endauth
+                </a>
                 <a class="nav-link" href="#"><i class="fa-solid fa-circle-question fa-lg"></i></a>
               </div>
             </div>
@@ -242,6 +250,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  <script src="{{ asset('assets/js/order.js') }}"></script>
 </body>
 
 </html>

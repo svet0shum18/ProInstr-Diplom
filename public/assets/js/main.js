@@ -177,3 +177,39 @@ $(document).ready(function() {
 });
 
 
+// ИЗБРАННОЕ
+// document.querySelectorAll('.add-to-fav').forEach(button => {
+//   button.addEventListener('click', function (e) {
+//       e.preventDefault();
+      
+//       const productId = this.getAttribute('data-id');
+//       console.log('Clicked button, product ID:', productId); // Проверка ID
+      
+//       if (!productId) {
+//           console.error('ID товара не найден');
+//           alert('Ошибка: ID товара не найден.');
+//           return;
+//       }
+
+//       // Пример запроса:
+//       fetch(`/favorite/${productId}`, {
+//           method: 'POST',
+//           headers: {
+//               'Content-Type': 'application/json',
+//               'X-CSRF-TOKEN': csrfToken
+//           },
+//           body: JSON.stringify({})
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//           alert(data.message);  // Показываем сообщение
+//       })
+//       .catch(error => {
+//           console.error('Ошибка:', error);
+//           alert('Ошибка при добавлении в избранное.');
+//       });
+//   });
+// });
+
+
+

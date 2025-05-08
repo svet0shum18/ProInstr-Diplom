@@ -11,6 +11,8 @@
 
     <form action="{{ route('user.store') }}" method="POST">
       @csrf
+
+      
        <div class="mb-3">
         <label for="name" class="form-label">Имя пользователя</label>
         <input name="name" type="text" class="form-control @error('name') is-invalid

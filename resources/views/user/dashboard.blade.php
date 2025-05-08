@@ -3,7 +3,16 @@
 @section('title', 'Личный кабинет')
 
 @section('content')
-    <div class="body_container mt-4">
+    <div class="body_container">
+         <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <!-- <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Профиль</a></li> -->
+            @if(isset($breadcrumb))
+                <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb }}</li>
+            @endif
+        </ol>
+    </nav>
         <h2 class="zag-section mt-4">Настройки профиля</h2>
 
         <div class="row">
@@ -13,8 +22,8 @@
                     <div class="card-body">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Заказы</a>
-                                <a class="nav-link" href="#">Избранное</a>
+                                <a class="nav-link" href="{{ route('order.orderuser') }}">Заказы</a>
+                                <a class="nav-link" href="{{ route('favorite.index') }}">Избранное</a>
                                 <a class="nav-link" href="#">Мои отзывы</a>
                                 <a class="nav-link" href="#">Персональные данные</a>
                                 <a class="nav-link" href="#">Достижения</a>

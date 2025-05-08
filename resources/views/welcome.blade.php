@@ -190,6 +190,11 @@
                 <p class="product-price">Цена:  {{ $product->price }} ₽</p>
                 <!-- <p class="product-price">Количество:  {{ $product->quantity }} шт.</p> -->
               </div>
+              <form action="{{ route('favorite.add', ['product' => $product->id]) }}" method="POST">
+                @csrf
+                <button type="submit" data-product-id="{{ $product->id }}" class="add-to-fav"><i class="fa-solid fa-heart solid-heart fa-xl"></i>
+                </button>
+              </form>
               <form action="{{ route('cart.add', $product->id) }}" method="POST">
                     @csrf
                     <button type="submit" class="add-to-cart" data-id="{{ $product->id }}"><i class="fa-solid fa-cart-shopping"></i></button>

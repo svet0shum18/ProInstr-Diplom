@@ -398,6 +398,16 @@ ul.navbar {
   transition: box-shadow 0.3s;
 }
 
+.product-card:hover .add-to-fav {
+  display: block;
+  
+}
+
+.add-to-fav:hover {
+  font-weight: 900;
+  color: #8c2f26;
+}
+
 .product-image {
   width: 100%;
   height: auto;
@@ -441,6 +451,7 @@ ul.navbar {
   border-radius: 100%;
   display: none; /* Скрыть кнопку */
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .add-to-cart:hover {
@@ -450,6 +461,178 @@ ul.navbar {
   
 }
 
+
+.btn-delete-cart {
+  background-color: transparent;
+  border: none;
+  margin-right: 20px;
+  font-weight: 500;
+  color: #e74c3c;
+  transition: all .3s;
+}
+
+.btn-delete-cart:hover {
+  color: #8c2f26;
+}
+
+
+.btn-quantit {
+  background-color: transparent;
+  border: 1px solid var(--contrast-color);
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  font-weight: 500;
+  font-size: 18px;
+  transition: all .3s;
+}
+
+.btn-quantit:hover {
+  background-color: var(--text-color);
+  
+}
+
+.add-to-fav {
+  position: absolute;
+  bottom: 10px;
+  left: 5%;
+  transform: translateX(10%);
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  color: #e74c3c;
+  border: none;
+  border-radius: 100%;
+  display: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* ФОРМЫ В КОРЗИНЕ */
+.card-cart {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.btn-go {
+  width: 100%;
+  border: 2px solid var(--accent-color);
+  border-radius: 50px;
+  padding: 5px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  transition: all .3s;
+}
+
+.btn-go:hover {
+background-color: transparent;
+}
+
+
+.card-order-opt {
+  border: 2px solid var(--contrast-color);
+  border-radius: 20px;
+  padding: 20px;
+  height: auto;
+  cursor: pointer;
+}
+
+.card-body-order {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+/* КНОПКА ВЫБОРА ДАТ */
+
+.date-picker {
+  width: 100%;
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 колонки равной ширины */
+  gap: 10px; /* Расстояние между кнопками */
+}
+
+.btn-date {
+  min-width: 180px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-align: center;
+  border: 2px solid var(--contrast-color);
+  outline: none;
+  
+}
+
+
+/* Стиль для выбранной даты */
+.btn-date.btn-primary {
+  background-color: transparent;
+  border-color: var(--contrast-color);
+  color: var(--contrast-color);
+}
+
+
+.btn-date:focus, 
+.btn-date:active {
+    box-shadow: none !important;
+    background-color: transparent !important;
+    color: var(--contrast-color) !important;
+    transform: none;
+    border: 2px solid var(--contrast-color) !important;
+    
+}
+
+
+/* Стиль для невыбранных дат */
+.btn-date.btn-outline-primary {
+  background-color: transparent;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  color: var(--contrast-color);
+}
+
+/* Эффекты при наведении */
+.btn-date.btn-outline-primary:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Доставка курьером */
+
+.card-cart-cur {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 22px;
+  height: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.card-cart-cur:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.card-map {
+  border-radius: 20px;
+  padding: 20px;
+}
+
+
+
 .product-card:hover {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
@@ -457,6 +640,47 @@ ul.navbar {
 .product-card:hover .add-to-cart {
   display: block; /* Показать кнопку при наведении */
 }
+
+/* МОДАЛЬНОЕ ОКНО ДОСТАВКИ */
+
+input, select, textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#deliveryTime {
+  border: 2px solid var(--text-color);
+  border-radius: 50px;
+  padding-left: 12px;
+}
+
+#comment {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+/* ХЛЕБНЫЕ КРОШКИ */
+
+.breadcrumb {
+  background-color: transparent;
+  padding: 0.75rem 0;
+  margin-bottom: 1rem;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  padding: 0 0.5rem;
+}
+.breadcrumb-item a {
+  color: #6c757d;
+  text-decoration: none;
+}
+.breadcrumb-item.active {
+  color: #495057;
+}
+
+
 
 
 footer p {
