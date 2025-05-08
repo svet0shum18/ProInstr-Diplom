@@ -49,10 +49,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // КОРЗИНА
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
     Route::get('/orders', [OrderController::class, 'index'])->name('order.orderuser');
-  
+
+    // ПРОФИЛЬ ЗАКАЗЫ
+    // Просмотр заказа
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('order.show');
+    // Удаление заказа
+    Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
+
 
     // СОХРАНЕНИЕ АДРЕСА ДОСТАВКИ
     Route::get('/get-saved-delivery-data', [OrderController::class, 'getLast'])->name('delivery.last');

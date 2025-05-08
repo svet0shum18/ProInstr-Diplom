@@ -170,17 +170,34 @@ class OrderController extends Controller
 }
 
 // Просмотр текущих заказов в профиле
-public function index()
+public function index(Request $request)
 {
     $orders = auth()->user()->orders()
+                ->when($request->status, fn($q, $status) => $q->where('status', $status))
+                ->when($request->period, function($q, $period) {
+                    $date = now();
+                    match ($period) {
+                        'month' => $date->subMonth(),
+                        '3months' => $date->subMonths(3),
+                        'year' => $date->subYear(),
+                        default => null,
+                    };
+                    return $q->where('created_at', '>=', $date);
+                })
+                ->with(['items.product'])
                 ->withCount('items')
                 ->latest()
-                ->paginate(10);
+                ->paginate(10)
+                ->appends($request->query());
     
-    // Добавляем человекочитаемые статусы
+    // Для AJAX-запросов возвращаем только часть шаблона
+    if ($request->ajax()) {
+        return view('order.partials.orders_list', compact('orders'));
+    }
+
     $statuses = [
         'new' => 'Новый',
-        'processing' => 'В обработке',
+        'processing' => 'В обработке', 
         'completed' => 'Завершен',
         'cancelled' => 'Отменен'
     ];
@@ -191,4 +208,52 @@ public function index()
     
     return view('order.orderuser', compact('orders'));
 }
+
+public function show(Order $order)
+{
+
+    // Проверка, что заказ принадлежит пользователю 
+    if ($order->user_id != auth()->id()) {
+        abort(403);
+    }
+    
+    // Добавляем преобразование статуса
+    $statuses = [
+        'new' => 'Новый',
+        'processing' => 'В обработке',
+        'completed' => 'Завершен',
+        'cancelled' => 'Отменен'
+    ];
+    
+    $order->status_text = $statuses[$order->status] ?? $order->status;
+    
+    return view('order.show', [
+        'order' => $order->load(['items.product', 'user']),
+        'items' => $order->items()->with('product')->get()
+    ]);
+
+
+}
+
+// Удаление заказа
+public function cancel(Order $order)
+{
+    if ($order->user_id != auth()->id()) {
+        return response()->json(['error' => 'Доступ запрещен'], 403);
+    }
+
+    if ($order->status != 'new') {
+        return response()->json(['error' => 'Нельзя отменить заказ в текущем статусе'], 400);
+    }
+
+    $order->update(['status' => 'cancelled']);
+
+    return response()->json([
+        'success' => true,
+        'status_text' => 'Отменен'
+       
+    ]);
+}
+
+
 }

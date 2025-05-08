@@ -4,34 +4,22 @@
 
 @section('content')
     <div class="body_container">
-         <!-- Хлебные крошки -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <!-- <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Профиль</a></li> -->
-            @if(isset($breadcrumb))
-                <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb }}</li>
-            @endif
-        </ol>
-    </nav>
+        <!-- Хлебные крошки -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <!-- <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Профиль</a></li> -->
+                @if(isset($breadcrumb))
+                    <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb }}</li>
+                @endif
+            </ol>
+        </nav>
         <h2 class="zag-section mt-4">Настройки профиля</h2>
-
         <div class="row">
-            <!-- Левое меню -->
-            <div class="col-md-3 mb-4">
-                <div class="card profile-card">
-                    <div class="card-body">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('order.orderuser') }}">Заказы</a>
-                                <a class="nav-link" href="{{ route('favorite.index') }}">Избранное</a>
-                                <a class="nav-link" href="#">Мои отзывы</a>
-                                <a class="nav-link" href="#">Персональные данные</a>
-                                <a class="nav-link" href="#">Достижения</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="col-md-3">
+            @include('partials.profile_menu')
             </div>
+           
+
 
             <!-- Основное содержимое -->
             <div class="col-md-9">
@@ -43,7 +31,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="form-label">Имя</label>
+                                <label class="form-label">Логин</label>
                                 <input type="text" class="form-control" value="{{ Auth::user()->name }}" id="name-input"
                                     placeholder="Введите ваше имя">
                                 <div id="name-status" class="mt-2 small"></div>
@@ -111,86 +99,85 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        document.getElementById('name-input').addEventListener('change', function () {
-            const newName = this.value;
-            const statusElement = document.getElementById('name-status');
+        <script>
+            document.getElementById('name-input').addEventListener('change', function () {
+                const newName = this.value;
+                const statusElement = document.getElementById('name-status');
 
-            // Показываем статус "Сохранение..."
-            statusElement.textContent = 'Сохранение...';
-            statusElement.className = 'mt-2 small text-info';
+                // Показываем статус "Сохранение..."
+                statusElement.textContent = 'Сохранение...';
+                statusElement.className = 'mt-2 small text-info';
 
-            fetch('{{ route("dashboard.update.name") }}', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ name: newName })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        statusElement.textContent = 'Успешно сохранено!';
-                        statusElement.className = 'mt-2 small text-success';
-
-                        // Через 3 секунды убираем сообщение
-                        setTimeout(() => {
-                            statusElement.textContent = '';
-                        }, 3000);
-
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1000);
-                    } else {
-                        statusElement.textContent = data.message || 'Ошибка сохранения';
-                        statusElement.className = 'mt-2 small text-danger';
-                    }
-                })
-                .catch(error => {
-                    statusElement.textContent = 'Ошибка сети';
-                    statusElement.className = 'mt-2 small text-danger';
-                });
-        });
-
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Инициализация модального окна
-            const deleteModal = new bootstrap.Modal(document.getElementById('deleteProfileModal'));
-
-            // Гарантированное удаление backdrop при скрытии
-            deleteModal._element.addEventListener('hidden.bs.modal', function () {
-                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-                document.body.classList.remove('modal-open');
-            });
-
-            // Обработчик ошибок при отправке формы
-            document.getElementById('deleteProfileForm').addEventListener('submit', function (e) {
-                fetch(this.action, {
-                    method: 'POST',
+                fetch('{{ route("dashboard.update.name") }}', {
+                    method: 'PUT',
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
                     },
-                    body: JSON.stringify({
-                        password: this.password.value,
-                        _method: 'DELETE'
-                    })
+                    body: JSON.stringify({ name: newName })
                 })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Ошибка удаления');
-                        deleteModal.hide();
-                        window.location.href = '/'; // Перенаправление после удаления
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            statusElement.textContent = 'Успешно сохранено!';
+                            statusElement.className = 'mt-2 small text-success';
+
+                            // Через 3 секунды убираем сообщение
+                            setTimeout(() => {
+                                statusElement.textContent = '';
+                            }, 3000);
+
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            statusElement.textContent = data.message || 'Ошибка сохранения';
+                            statusElement.className = 'mt-2 small text-danger';
+                        }
                     })
                     .catch(error => {
-                        alert(error.message);
+                        statusElement.textContent = 'Ошибка сети';
+                        statusElement.className = 'mt-2 small text-danger';
                     });
-
-                e.preventDefault();
             });
-        });
-    </script>
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Инициализация модального окна
+                const deleteModal = new bootstrap.Modal(document.getElementById('deleteProfileModal'));
+
+                // Гарантированное удаление backdrop при скрытии
+                deleteModal._element.addEventListener('hidden.bs.modal', function () {
+                    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+                    document.body.classList.remove('modal-open');
+                });
+
+                // Обработчик ошибок при отправке формы
+                document.getElementById('deleteProfileForm').addEventListener('submit', function (e) {
+                    fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            password: this.password.value,
+                            _method: 'DELETE'
+                        })
+                    })
+                        .then(response => {
+                            if (!response.ok) throw new Error('Ошибка удаления');
+                            deleteModal.hide();
+                            window.location.href = '/'; // Перенаправление после удаления
+                        })
+                        .catch(error => {
+                            alert(error.message);
+                        });
+
+                    e.preventDefault();
+                });
+            });
+        </script>
 @endsection

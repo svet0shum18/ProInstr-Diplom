@@ -234,3 +234,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ПОДРОБНЕЕ И ОТМЕНА
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработка кнопки "Подробнее" (AJAX)
+    document.querySelectorAll('.order-details-btn').forEach(btn => {
+        btn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const orderId = this.dataset.orderId;
+            
+            try {
+                // Показываем модальное окно или загружаем детали
+                const response = await fetch(`/orders/${orderId}/details`);
+                const data = await response.json();
+                
+                // Здесь можно открыть модальное окно с данными
+                console.log('Детали заказа:', data);
+                // Или перенаправить на страницу заказа
+                // window.location.href = this.href;
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+            }
+        });
+    });
+
+    // Обработка отмены заказа
+    document.querySelectorAll('.cancel-order-btn').forEach(btn => {
+        btn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            if (!confirm('Вы уверены, что хотите отменить заказ?')) return;
+            
+            const form = this.closest('form');
+            const orderCard = form.closest('.order-card');
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'PATCH',
+                    headers: {
+                        'X-CSRF-TOKEN': form.querySelector('[name="_token"]').value,
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Обновляем только текущую карточку
+                    const badge = orderCard.querySelector('.badge');
+                    badge.textContent = 'Отменен';
+                    badge.className = 'badge bg-danger';
+                    
+                    // Скрываем кнопку
+                    form.style.display = 'none';
+                } else {
+                    throw new Error(result.message || 'Ошибка отмены заказа');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    });
+});
