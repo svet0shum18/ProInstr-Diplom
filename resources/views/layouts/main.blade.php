@@ -120,12 +120,84 @@
                     Каталог
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Бензо-инструменты</a></li>
-                    <li><a class="dropdown-item" href="#">Климатическое оборудование</a></li>
-                    <li><a class="dropdown-item" href="#">Насосное оборудование</a></li>
-                    <li><a class="dropdown-item" href="#">Ручные и авто-инструменты</a></li>
-                    <li><a class="dropdown-item" href="#">Сварочное оборудование</a></li>
-                    <li><a class="dropdown-item" href="#">Электро-инструменты</a></li>
+                    <!-- Бензо-инструменты -->
+                <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Бензо-инструменты
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="#">Бензопилы</a></li>
+                        <li><a class="dropdown-item" href="#">Генераторы</a></li>
+                        <li><a class="dropdown-item" href="#">Бензорезы</a></li>
+                        <li><a class="dropdown-item" href="#">Бензогенераторы</a></li>
+                        <li><a class="dropdown-item" href="#">Мотопомпы</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown-submenu position-relative">
+                      <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                      Климатическое оборудование
+                      <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                      <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="#">Кондиционеры</a></li>
+                        <li><a class="dropdown-item" href="#">Водонагреватели</a></li>
+                        <li><a class="dropdown-item" href="#">Обогреватели</a></li>
+                        <li><a class="dropdown-item" href="#">Вентеляторы</a></li>
+                        <li><a class="dropdown-item" href="#">Тепловые пушки</a></li>
+                    </ul>
+                  </li>
+                    <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Насосное оборудование
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="#">Центробежные насосы</a></li>
+                        <li><a class="dropdown-item" href="#">Винтовые насосы</a></li>
+                        <li><a class="dropdown-item" href="#">Вибрационные насосы</a></li>
+                        <li><a class="dropdown-item" href="#">Криогенные насосы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Ручные и авто-инструменты
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="#">Наборы инструментов</a></li>
+                        <li><a class="dropdown-item" href="#">Автомобильный инструмент</a></li>
+                        <li><a class="dropdown-item" href="#">Ящики для инструментов</a></li>
+                        <li><a class="dropdown-item" href="#">Лопаты</a></li>
+                        <li><a class="dropdown-item" href="#">Отвертки</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Сварочное оборудование
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="#">Дуговая сварка</a></li>
+                        <li><a class="dropdown-item" href="#">Контактная сварка</a></li>
+                        <li><a class="dropdown-item" href="#">Газопламенная сварка</a></li>
+                        <li><a class="dropdown-item" href="#">Холодная сварка</a></li>
+                        <li><a class="dropdown-item" href="#">Лазерная сварка</a></li>
+                    </ul>
+                </li>
+                      <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Электро-инструменты
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="#">Дрели</a></li>
+                        <li><a class="dropdown-item" href="#">Перфораторы</a></li>
+                        <li><a class="dropdown-item" href="#">Шуруповерты</a></li>
+                        <li><a class="dropdown-item" href="#">Болгарки</a></li>
+                        <li><a class="dropdown-item" href="#">Штроборезы</a></li>
+                    </ul>
+                </li>
                   </ul>
                 </div>
                 <a class="nav-link" href="{{ route('cart.index') }}"> Корзина
@@ -203,7 +275,7 @@
         @yield('content')
       </div>
     </main>
-    <footer class="footer bg-dark mt-4">
+    <footer class="footer bg-dark mt-4" style="padding-top: 20px;">
       <div class="body_container mt-4">
         <div class="row">
           <!-- Map Section -->

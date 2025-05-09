@@ -13,7 +13,7 @@
 @section('title', 'Корзина')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="body_container mt-4">
         <h1 class="mb-4">Корзина {{ $itemsCount = count($cartItems) }}
 
             @if($itemsCount % 10 == 1 && $itemsCount % 100 != 11)
@@ -26,8 +26,8 @@
         </h1>
 
         @if($isEmpty)
-            <div class="alert alert-warning">
-                Ваша корзина пуста.
+            <div class="d-flex justify-content-start w-100 gap-2 h5">
+                В корзине пока что пусто! <a href="{{ url('/') }}" class="fw-bold link-success"> Начать покупки</a>
             </div>
         @else
 
@@ -313,7 +313,6 @@
                                 <input type="hidden" name="delivery_date" id="deliveryDateField">
                                 <input type="hidden" name="time_interval" id="deliveryTimeInterval">
                                 <input type="hidden" name="comment" id="deliveryComment">
-
                                 <button type="submit" class="btn-go">
                                     Оформить заказ
                                 </button>

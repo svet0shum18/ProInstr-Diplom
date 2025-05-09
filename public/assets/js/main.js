@@ -29,6 +29,28 @@
     slideInterval = setInterval(nextSlide, 3000);
   });
 
+  // Инициализация меню
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.querySelector('.dropdown');
+        const megaMenu = document.querySelector('.mega-menu');
+        
+        dropdown.addEventListener('mouseenter', function() {
+            this.querySelector('.dropdown-toggle').click();
+        });
+        
+        dropdown.addEventListener('mouseleave', function(e) {
+            if (!megaMenu.contains(e.relatedTarget)) {
+                this.querySelector('.dropdown-toggle').click();
+            }
+        });
+        
+        megaMenu.addEventListener('mouseleave', function(e) {
+            if (!dropdown.contains(e.relatedTarget)) {
+                dropdown.querySelector('.dropdown-toggle').click();
+            }
+        });
+    });
+
 // МОДАЛЬНОЕ ОКНО
  // Функция для открытия модального окна
 function openModal(modalId) {
