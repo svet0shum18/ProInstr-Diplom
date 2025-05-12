@@ -51,7 +51,7 @@
       <tr>
         <td>
         <div class="d-flex align-items-center">
-        <img src="{{ asset('assets/img/product/' . $item->product->image) }}" width="60" class="me-3">
+        <img src="{{ asset('assets/img/products/' . $item->product->image) }}" width="60" class="me-3">
         {{ $item->product->name }}
         </div>
         </td>

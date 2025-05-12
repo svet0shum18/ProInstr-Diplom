@@ -63,7 +63,7 @@
         <div class="order-items">
         @foreach($order->items->take(3) as $item)
       <div class="d-flex align-items-center mb-2">
-        <img src="{{ asset('assets/img/product/' . $item->product->image) }}" alt="{{ $item->product->name }}"
+        <img src="{{ asset('assets/img/products/' . $item->product->image) }}" alt="{{ $item->product->name }}"
         class="img-thumbnail me-2" width="90">
         <div class="flex-grow-1">
         <p class="mb-0">{{ $item->product->name }}</p>

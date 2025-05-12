@@ -234,4 +234,35 @@ $(document).ready(function() {
 // });
 
 
+// НОВОСТИ
 
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryLinks = document.querySelectorAll('.news-links a');
+    const allNewsItems = document.querySelectorAll('.news-item');
+
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Удаляем активный класс у всех ссылок
+            categoryLinks.forEach(el => el.classList.remove('active'));
+            // Добавляем активный класс текущей ссылке
+            this.classList.add('active');
+            
+            const categoryId = this.dataset.category;
+            
+            // Фильтрация новостей
+            allNewsItems.forEach(item => {
+                if (categoryId === 'all' || item.dataset.category === categoryId) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Перезапускаем слайдер после фильтрации
+            const carousel = new bootstrap.Carousel(document.getElementById('newsSlider'));
+            carousel.to(0); // Переходим к первому слайду
+        });
+    });
+});

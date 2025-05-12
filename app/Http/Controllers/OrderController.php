@@ -246,7 +246,17 @@ public function cancel(Order $order)
         return response()->json(['error' => 'Нельзя отменить заказ в текущем статусе'], 400);
     }
 
-    $order->update(['status' => 'cancelled']);
+    foreach ($order->items as $item) {
+        $product = $item->product;
+        if ($product) {
+            $product->quantity += $item->quantity;
+            $product->save();
+        }
+    }
+
+     // Обновляем статус заказа
+    $order->status = 'cancelled';
+    $order->save();
 
     return response()->json([
         'success' => true,

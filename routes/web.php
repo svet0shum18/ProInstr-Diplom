@@ -10,27 +10,22 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OneCExchangeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\NewsController;
 use App\Models\Product;
 
 
-Route::get('/test-1c-access', function () {
-    $path = storage_path('app/1c_exchange/test.txt');
 
-    try {
-        file_put_contents($path, 'Тест успешен: Laravel может писать в 1c_exchange!');
-        return '✅ Файл успешно создан: ' . $path;
-    } catch (\Exception $e) {
-        return '❌ Ошибка: ' . $e->getMessage();
-    }
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [NewsController::class, 'index']);
 
-// ИНТЕГРАЦИЯ С 1АСС
+// Отображение новостей
+Route::get('/news/{id}/{slug?}', [NewsController::class, 'show'])->name('news.show');
 
-Route::match(['get', 'post'], '/exchange.php', [OneCExchangeController::class, 'handle']);
+
 
 // ROOTIK
 Route::middleware(['auth', 'is_admin'])->group(function () {
@@ -72,6 +67,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/favorite/{product}', [FavoriteController::class, 'addFavorite'])->name('favorite.add');
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
     Route::delete('/favorite/{product}', [FavoriteController::class, 'remove'])->name('favorite.remove');
+
+
+    // ------------------------------------------ТОВАРЫ-----------------------------------------------------
+
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
+    // Бензопилы
+    Route::get('/benzopily', [ProductController::class, 'showChainsaws'])->name('products.chainsaw');
 
 
 });
@@ -151,10 +154,10 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/', function () {
-    $products = Product::all(); // Получаем все товары из базы данных
-    return view('welcome', compact('products'));
-});
+// Route::get('/', function () {
+//     $products = Product::all(); // Получаем все товары из базы данных
+//     return view('welcome', compact('products'));
+// });
 
 // Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
 

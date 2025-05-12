@@ -127,7 +127,7 @@
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
                     <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
-                        <li><a class="dropdown-item" href="#">Бензопилы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.chainsaw') }}">Бензопилы</a></li>
                         <li><a class="dropdown-item" href="#">Генераторы</a></li>
                         <li><a class="dropdown-item" href="#">Бензорезы</a></li>
                         <li><a class="dropdown-item" href="#">Бензогенераторы</a></li>
@@ -273,6 +273,7 @@
         
 
         @yield('content')
+        
       </div>
     </main>
     <footer class="footer bg-dark mt-4" style="padding-top: 20px;">
@@ -322,8 +323,26 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
   <script src="{{ asset('assets/js/order.js') }}"></script>
+  <script src="{{ asset('assets/js/cart.js') }}"></script>
+  <!-- В конце body, перед закрывающим тегом -->
+<div class="notification-wrapper">
+    <!-- Успешное добавление в корзину -->
+    <div id="cart-notification" class="notification-toast">
+        <div class="toast-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        </div>
+        <div class="toast-content">
+            <p class="toast-message">Товар добавлен в корзину</p>
+        </div>
+        <button class="toast-close">&times;</button>
+    </div>
+</div>
 </body>
 
 </html>

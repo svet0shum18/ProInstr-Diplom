@@ -181,36 +181,56 @@
       </div>
     </section><!-- ./Section brands -->
 
-    <section class="popular_product">
-      <h2 class="zag-section mt-4">Топ 5 популярных товаров</h2>
-      <div class="product-container mt-4">
-      @foreach($products as $product)
-
-      <div class="product-card">
-      <img src="{{ asset('assets/img/product/' . $product->image) }}" alt="Product 1" class="product-image">
-      <div class="product-info">
-      <a href="#">
-        <h3 class="product-name">{{ $product->name }}</h3>
+    <section class="news-section">
+      <div class="body_container mt-4">
+      <div class="news-header mt-4"> 
+        <div class="news-links">
+           <a href="#" class="news-link active" data-category="all">Все записи</a>
+        @foreach($categories as $category)
+      <a href="#" class="news-link" data-category="{{ $category->id }}">
+        {{ $category->name }}
       </a>
-      <p class="product-description">{{ $product->description }}</p>
-      <p class="product-price">Цена: {{ $product->price }} ₽</p>
-      <!-- <p class="product-price">Количество:  {{ $product->quantity }} шт.</p> -->
+      @endforeach
+        </div>
       </div>
-      <form action="{{ route('favorite.add', ['product' => $product->id]) }}" method="POST">
-      @csrf
-      <button type="submit" data-product-id="{{ $product->id }}" class="add-to-fav"><i
-        class="fa-solid fa-heart solid-heart fa-xl"></i>
+      <!-- Слайдер новостей -->
+        <div id="newsSlider" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        @foreach($news->chunk(3) as $chunk)
+        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+          <div class="row g-4 d-flex flex-nowrap mt-2"> <!-- Добавлен flex-nowrap -->
+            @foreach($chunk as $item)
+            <div class="col-md-4 news-item flex-shrink-0" data-category="{{ $item->category_id }}"> <!-- Добавлен flex-shrink-0 -->
+              <div class="card h-100 border-none">
+                <img src="{{ 'assets/img/news/' . $item->img }}" class="card-img-top" alt="{{ $item->title }}">
+                <div class="card-body">
+                  <div class="news-date">{{ $item->created_at->format('d.m.Y') }}</div>
+                  <h3 class="news-title">{{ $item->title }}</h3>
+                  <p class="news-description">{{ Str::limit($item->description, 80) }}</p>
+                  <a href="{{ route('news.show', ['id' => $item->id, 'slug' => Str::slug($item->title)]) }}" data-article-id="{{ $item->id }}" class="read-more">Читать далее ></a>
+                </div>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        @endforeach
+      </div>
+      <div class="control-position">
+      <button class="carousel-control-prev" type="button" data-bs-target="#newsSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
       </button>
-      </form>
-      <form action="{{ route('cart.add', $product->id) }}" method="POST">
-      @csrf
-      <button type="submit" class="add-to-cart" data-id="{{ $product->id }}"><i
-        class="fa-solid fa-cart-shopping"></i></button>
-      </form>
+      <button class="carousel-control-next" type="button" data-bs-target="#newsSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    </div>
+     
       </div>
-    @endforeach
-      </div>
-    </section><!-- ./Section popular -->
+    </section>
+
 
     <section class="subscribe">
       <h2 class="zag-section mt-4">Отвечаем на возникшие вопросы!</h2>
@@ -227,68 +247,75 @@
           <textarea class="form-control rounded-4" id="message" rows="3"></textarea>
           </div>
           <div class="mb-4">
-           <button type="submit" class="btn-go w-80">Отправить сообщение</button>
-           </div>
+          <button type="submit" class="btn-go w-80">Отправить сообщение</button>
+          </div>
         </div>
         </form>
       </div>
       <div class="col-md-6">
 
-       <div class="accordion mt-3" id="accordionExample">
-            <div class="accordion-item profile-card" style="border: none;">
-                <h5 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Как оформить заказ?
-                    </button>
-                </h5>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>Для оформления заказа добавьте товары в корзину,<br>перейдите в раздел "Оформление заказа", 
-                        заполните контактные данные<br> 
-                        и выберите способ доставки. У нас можно получить закз самовывозом, либо оформить доставку курьером.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item profile-card" style="border: none;">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Какие способы оплаты доступны?
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>
-                          Если вы оформили заказ самовывозом, то оплатить товар можете наличными, 
-                          банковской картой, либо переводом через систему быстрых платежей.<br>
-                          Если вы оформили заказ доставкой курьером, то можно оплатить заказ на сайте с помощью системы быстрых платежей,
-                          либо оплатить заказ курьеру.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item profile-card" style="border: none;">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Как узнать статус моего заказа?
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>
-                          Зарегестрируйтесь на нашем сайте. В личном кабинете в разделе "заказы" вы можете следить за текущими заказами.
-                          Также, после оформления заказа в течении 15 минут у вас есть возможность отменить заказ. Для этого в личном кабинете
-                          перейдите в "заказы". У заказов со статусом "Новый" будет отображена кнопка "Отменить заказ"
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="accordion mt-3" id="accordionExample">
+        <div class="accordion-item profile-card" style="border: none;">
+          <h5 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">
+            Как оформить заказ?
+          </button>
+          </h5>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>Для оформления заказа добавьте товары в корзину,<br>перейдите в раздел "Оформление заказа",
+            заполните контактные данные<br>
+            и выберите способ доставки. У нас можно получить закз самовывозом, либо оформить доставку курьером.
+            </p>
+          </div>
+          </div>
         </div>
+        <div class="accordion-item profile-card" style="border: none;">
+          <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Какие способы оплаты доступны?
+          </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+            Если вы оформили заказ самовывозом, то оплатить товар можете наличными,
+            банковской картой, либо переводом через систему быстрых платежей.<br>
+            Если вы оформили заказ доставкой курьером, то можно оплатить заказ на сайте с помощью системы
+            быстрых платежей,
+            либо оплатить заказ курьеру.
+            </p>
+          </div>
+          </div>
+        </div>
+        <div class="accordion-item profile-card" style="border: none;">
+          <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Как узнать статус моего заказа?
+          </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+            Зарегестрируйтесь на нашем сайте. В личном кабинете в разделе "заказы" вы можете следить за текущими
+            заказами.
+            Также, после оформления заказа в течении 15 минут у вас есть возможность отменить заказ. Для этого в
+            личном кабинете
+            перейдите в "заказы". У заказов со статусом "Новый" будет отображена кнопка "Отменить заказ"
+            </p>
+          </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+      </div>
     </div>
 
-                
-      </div>
-      </div>
-      
 
 
     </section>

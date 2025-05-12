@@ -59,7 +59,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('assets/img/product/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="img-fluid rounded me-3" width="60">
+                                            <img src="{{ asset('assets/img/products/' . $item->product->image) }}" alt="{{ $item->product->name }}" class="img-fluid rounded me-3" width="60">
                                             <div>
                                                 <h6 class="mb-0">{{ $item->product->name }}</h6>
                                                 <small class="text-muted">Арт. {{ $item->product->article }}</small>

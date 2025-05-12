@@ -10,11 +10,11 @@ class CartItem extends Model
 
     public function cart()
     {
-        return $this->belongsTo(Cart::class, 'cart_id');
+        return $this->belongsTo(Cart::class);
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class)->with('brand');
     }
 }

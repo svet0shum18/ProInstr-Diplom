@@ -35,7 +35,7 @@ class CartController extends Controller
         $product->quantity -= 1;
         $product->save();
 
-        return response()->json(['message' => 'Товар добавлен в корзину']);
+        return redirect()->back()->with('success', 'Товар добавлен в корзину!');
     }
 
     public function index()

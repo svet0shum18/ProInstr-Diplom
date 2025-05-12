@@ -1,9 +1,8 @@
 @php
-    function declension($number, $titles)
-    {
-        $cases = [2, 0, 1, 1, 1, 2];
-        return $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
-    }
+    $itemsCount = count($cartItems);
+    $titles = ['товар', 'товара', 'товаров'];
+    $cases = [2, 0, 1, 1, 1, 2];
+    $index = ($itemsCount % 100 > 4 && $itemsCount % 100 < 20) ? 2 : $cases[min($itemsCount % 10, 5)];
 @endphp
 
 
@@ -14,16 +13,7 @@
 
 @section('content')
     <div class="body_container mt-4">
-        <h1 class="mb-4">Корзина {{ $itemsCount = count($cartItems) }}
-
-            @if($itemsCount % 10 == 1 && $itemsCount % 100 != 11)
-                товар
-            @elseif($itemsCount % 10 >= 2 && $itemsCount % 10 <= 4 && ($itemsCount % 100 < 10 || $itemsCount % 100 >= 20))
-                товара
-            @else
-                товаров
-            @endif
-        </h1>
+        <h1 class="mb-4">Корзина {{ $itemsCount }} {{ $titles[$index] }}</h1>
 
         @if($isEmpty)
             <div class="d-flex justify-content-start w-100 gap-2 h5">
@@ -38,7 +28,7 @@
                             data-product-price="{{ $item->product->price }}">
                             <div class="row g-0">
                                 <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <img src="{{ asset('assets/img/product/' . $item->product->image) }}"
+                                    <img src="{{ asset('assets/img/products/' . $item->product->image) }}"
                                         class="img-fluid rounded-start" style="max-width: 120px; max-height: 120px;"
                                         alt="{{ $item->product->name }}">
                                 </div>
@@ -290,8 +280,8 @@
                                     <strong>{{ number_format($totalSum, 0, '', ' ') }} ₽</strong>
                                 </p>
                             </div>
-                            <p class="card-text fs-6">{{ count($cartItems) }}
-                                {{ declension(count($cartItems), ['товар', 'товара', 'товаров']) }}
+                            <p class="card-text fs-6">
+                                {{ $itemsCount }} {{ $titles[$index] }}
                             </p>
                             <div id="deliverySummary"></div>
 

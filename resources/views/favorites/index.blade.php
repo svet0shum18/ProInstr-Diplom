@@ -21,7 +21,7 @@
                     @forelse($favorites as $favorite)
                         @php $product = $favorite->product; @endphp
                         <div class="product-card" style="width: 256px;">
-                            <img src="{{ asset('assets/img/product/' . $product->image) }}" alt="Product Image"
+                            <img src="{{ asset('assets/img/products/' . $product->image) }}" alt="{{ $product->name }}"
                                 class="product-image">
                             <div class="product-info">
                                 <h3 class="product-name">{{ $product->name }}</h3>
