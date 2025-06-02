@@ -191,9 +191,7 @@ public function index(Request $request)
                 ->appends($request->query());
     
     // Для AJAX-запросов возвращаем только часть шаблона
-    if ($request->ajax()) {
-        return view('order.partials.orders_list', compact('orders'));
-    }
+
 
     $statuses = [
         'new' => 'Новый',
@@ -206,7 +204,7 @@ public function index(Request $request)
         $order->status_text = $statuses[$order->status] ?? $order->status;
     });
     
-    return view('order.orderuser', compact('orders'));
+    return view('order.index', compact('orders'));
 }
 
 public function show(Order $order)

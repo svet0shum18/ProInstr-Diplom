@@ -97,21 +97,27 @@
               </div>
             </div>
 
-            <div class="col-md-6">
-              <div class="header-middle_search d-flex align-items-center h-100">
-                <form action="" class="w-100">
-                  <div class="position-relative">
-                    <input type="text" name="search" class="form-control pe-5" placeholder="Поиск ..."
-                      aria-label="Поиск ..." aria-describedby="button-addon2">
-                    <button
-                      class="btn position-absolute end-0 top-50 translate-middle-y me-3 p-0 border-0 bg-transparent"
-                      type="submit" id="button-addon2">
-                      <i class="fa-solid fa-magnifying-glass" style="color: #6c757d;"></i>
-                    </button>
-                  </div>
-                </form>
-              </div>
+       <div class="col-md-6">
+    <div class="header-middle_search d-flex align-items-center h-100">
+        <form action="{{ route('products.search') }}" method="GET" class="w-100">
+            <div class="position-relative">
+                <input 
+                    type="text" 
+                    name="query" 
+                    class="form-control pe-5" 
+                    placeholder="Поиск товаров..." 
+                    aria-label="Поиск товаров..." 
+                    value="{{ request('query') }}"
+                    required
+                >
+                <button class="btn position-absolute end-0 top-50 translate-middle-y me-3 p-0 border-0 bg-transparent" 
+                        type="submit">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #6c757d;"></i>
+                </button>
             </div>
+        </form>
+    </div>
+</div>
             <div class="col-md-3">
               <div class="header-middle_nav d-flex align-items-center justify-content-between h-100 w-100">
                 <div class="dropdown">
@@ -128,10 +134,10 @@
                     </a>
                     <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
                         <li><a class="dropdown-item" href="{{ route('products.chainsaw') }}">Бензопилы</a></li>
-                        <li><a class="dropdown-item" href="#">Генераторы</a></li>
-                        <li><a class="dropdown-item" href="#">Бензорезы</a></li>
-                        <li><a class="dropdown-item" href="#">Бензогенераторы</a></li>
-                        <li><a class="dropdown-item" href="#">Мотопомпы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.generator') }}">Генераторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.benzorez') }}">Бензорезы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.generator') }}">Бензогенераторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pomp') }}">Мотопомпы</a></li>
                     </ul>
                 </li>
                     <li class="dropdown-submenu position-relative">
@@ -140,9 +146,9 @@
                       <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
                       <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
-                        <li><a class="dropdown-item" href="#">Кондиционеры</a></li>
-                        <li><a class="dropdown-item" href="#">Водонагреватели</a></li>
-                        <li><a class="dropdown-item" href="#">Обогреватели</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.conditioners') }}">Кондиционеры</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.waterheaters') }}">Водонагреватели</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.heaters') }}">Обогреватели</a></li>
                         <li><a class="dropdown-item" href="#">Вентеляторы</a></li>
                         <li><a class="dropdown-item" href="#">Тепловые пушки</a></li>
                     </ul>
@@ -328,21 +334,7 @@
   <script src="{{ asset('assets/js/order.js') }}"></script>
   <script src="{{ asset('assets/js/cart.js') }}"></script>
   <!-- В конце body, перед закрывающим тегом -->
-<div class="notification-wrapper">
-    <!-- Успешное добавление в корзину -->
-    <div id="cart-notification" class="notification-toast">
-        <div class="toast-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-        </div>
-        <div class="toast-content">
-            <p class="toast-message">Товар добавлен в корзину</p>
-        </div>
-        <button class="toast-close">&times;</button>
-    </div>
-</div>
+
 </body>
 
 </html>

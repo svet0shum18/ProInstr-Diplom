@@ -24,7 +24,7 @@
                             <img src="{{ asset('assets/img/products/' . $product->image) }}" alt="{{ $product->name }}"
                                 class="product-image">
                             <div class="product-info">
-                                <h3 class="product-name">{{ $product->name }}</h3>
+                                <a class="product-name" href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                                 <p class="product-description">{{ $product->description }}</p>
                                 <p class="product-price">Цена: {{ $product->price }} ₽</p>
 

@@ -266,3 +266,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+//Отзывы
+document.addEventListener('DOMContentLoaded', function() {
+    const editReviewModal = document.getElementById('editReviewModal');
+    
+    if (editReviewModal) {
+        editReviewModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const reviewId = button.getAttribute('data-review-id');
+            const form = document.getElementById('editReviewForm');
+            
+            // Устанавливаем правильный action для формы
+            form.action = `{{ route('reviews.update', ':id') }}`.replace(':id', reviewId);
+            
+            // Заполняем данные
+            document.getElementById('editReviewId').value = reviewId;
+            document.getElementById('editReviewComment').value = button.getAttribute('data-comment');
+            
+            // Устанавливаем рейтинг
+            const rating = button.getAttribute('data-rating');
+            document.querySelector(`input[name="rating"][value="${rating}"]`).checked = true;
+        });
+    }
+    
+    // Обработка отправки формы
+    const form = document.getElementById('editReviewForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Стандартная отправка формы
+            this.submit();
+        });
+    }
+});
+

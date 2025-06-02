@@ -7,7 +7,7 @@
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Профиль</a></li>
-      <li class="breadcrumb-item"><a href="{{ route('order.orderuser') }}">Мои заказы</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('order.index') }}">Мои заказы</a></li>
       <li class="breadcrumb-item active">Заказ #{{ $order->id }}</li>
     </ol>
     </nav>

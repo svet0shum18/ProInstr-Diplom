@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class News extends Model
 {
-    protected $fillable = ['title','img','description','category_id'];
+    protected $fillable = ['title', 'img', 'description', 'text','category_id'];
 
     public function category(): BelongsTo {
         return $this->belongsTo(CategoryNews::class, 'category_id');
@@ -15,6 +15,6 @@ class News extends Model
 
       public function getImageUrlAttribute()
     {
-        return asset('assets/img/news/' . $this->image);
+        return asset('assets/img/news/' . $this->img);
     }
 }

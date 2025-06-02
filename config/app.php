@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'shop_address' => 'г.Владивосток, п.Трудовое, ул.Лермонтова,70
+              стр 5,2 этаж, ТЦ Лермонтов',
+
 ];

@@ -84,4 +84,12 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function reviews() {
+        return $this->hasMany(Review::class)->where('is_approved', true);
+    }
+
+    public function approvedReviews() {
+        return $this->reviews()->where('is_approved', true);
+    }
 }

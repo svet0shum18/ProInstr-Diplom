@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body ms-3">
-                                        <h5 class="card-title">{{ $item->product->name }}</h5>
+                                        <a class="card-title fw-bold h5" href="{{ route('products.show', $item->product->id) }}">{{ $item->product->name }}</a>
                                         <div class="d-flex align-items-center mt-3">
                                             <form action="{{ route('cart.update', $item->id) }}" method="POST" class="me-2">
                                                 @csrf
@@ -311,29 +311,6 @@
                     </div>
 
 
-                    <!-- Дополнительные опции -->
-                    <!-- <div class="card-cart mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Шате-M Плюс</h5>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="text-decoration-none">Белые игры</a></li>
-                                <li><a href="#" class="text-decoration-none">График</a></li>
-                                <li><a href="#" class="text-decoration-none">Рисунок</a></li>
-                                <li><a href="#" class="text-decoration-none">Уровень</a></li>
-                            </ul>
-
-                            <h5 class="card-title mt-3">Выберите</h5>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="text-decoration-none">Открыть Яндекс Карты</a></li>
-                                <li><a href="#" class="text-decoration-none">ВсеИнструменты.py</a></li>
-                                <li><a href="#" class="text-decoration-none">Яндекс Условия использования</a></li>
-                                <li><a href="#" class="text-decoration-none">Яндекс Список</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div> -->
+                @endif
 
 @endsection

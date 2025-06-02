@@ -23,4 +23,13 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getDeliveryTypeAttribute()
+{
+    return [
+        'pickup' => 'Самовывоз',
+        'courier' => 'Курьерская доставка'
+      
+    ][$this->type] ?? $this->type;
+}
 }

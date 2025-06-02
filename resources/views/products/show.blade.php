@@ -8,12 +8,29 @@
     <!-- Хлебные крошки -->
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Каталог</a></li>
-      <li class="breadcrumb-item"><a href="#">Бензо-инструменты</a></li>
-      <li class="breadcrumb-item"><a href="{{ route('products.chainsaw') }}">Бензопилы</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+        <li class="breadcrumb-item"><a href="#">Каталог</a></li>
+        
+        @if($product->category)
+            <li class="breadcrumb-item">
+                <a href="#">
+                    {{ $product->category->name }}
+                </a>
+            </li>
+        @endif
+        
+        @if($product->toolType)
+            <li class="breadcrumb-item">
+                <a href="#">
+                    {{ $product->toolType->name }}
+                </a>
+            </li>
+        @endif
+        
+        <li class="breadcrumb-item active" aria-current="page">
+            {{ $product->name }}
+        </li>
     </ol>
-    </nav>
+</nav>
     <div class="profile-card">
     <div class="row">
       <!-- Основная информация о товаре -->
@@ -31,7 +48,7 @@
       <!-- Рейтинг и отзывы -->
       <div class="rating mb-3">
         <span class="stars">★★★★★</span>
-        <span class="review-count">51 отзыв</span><br>
+        <span class="review-count">{{ $product->reviews->count() }} отзывов</span><br>
         <span class="reliability-badge">Хорошая надежность</span>
       </div>
 
@@ -121,14 +138,104 @@
     </div>
 
     <!-- Отзывы -->
-    <div class="product-reviews mt-5 ms-5">
-      <h3>Отзывы <span class="review-count">(51)</span></h3>
-      <div class="no-reviews">
-      <p>Пока нет отзывов с фото</p>
-      <p>Будьте первыми и помогите другим с выбором</p>
-      <button class="btn btn-outline-primary">Написать отзыв</button>
-      </div>
+  <div class="product-reviews mt-5 ms-5">
+    <h3>Отзывы <span class="review-count">({{ $product->reviews->count() }})</span></h3>
+    
+    @if($product->reviews->isEmpty())
+        <div class="no-reviews text-center py-4">
+            <p>Пока нет отзывов с фото</p>
+            <p>Будьте первыми и помогите другим с выбором</p>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">
+                Написать отзыв
+            </button>
+        </div>
+    @else
+        <div class="reviews-container mb-4">
+            <!-- Фильтры -->
+            <!-- Список отзывов -->
+            @foreach($product->reviews as $review)
+                <div class="review-item mb-4 p-3 border rounded mt-4 me-5">
+                    <div class="d-flex justify-content-between">
+                        <div class="review-author fw-bold">
+                            {{ $review->user->name }}
+                        </div>
+                        <div class="review-rating text-warning">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $review->rating)
+                                    ★
+                                @else
+                                    ☆
+                                @endif
+                            @endfor
+                        </div>
+                    </div>
+                    <div class="review-date small text-muted mb-2">
+                        {{ $review->created_at->format('d.m.Y') }}
+                    </div>
+                    <div class="review-text mb-3">
+                        {{ $review->comment }}
+                    </div>
+                    
+                    @if($review->photos)
+                        <div class="review-photos">
+                            @foreach($review->photos as $photo)
+                                <a href="{{ asset('storage/reviews/'.$photo) }}" data-lightbox="review-{{ $review->id }}">
+                                    <img src="{{ asset('storage/reviews/thumbs/'.$photo) }}" 
+                                         class="img-thumbnail m-1" 
+                                         style="max-height: 80px">
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+            
+            <!-- Кнопка добавления отзыва -->
+            <div class="text-center mt-4">
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#reviewModal">
+                    Оставить отзыв
+                </button>
+            </div>
+        </div>
+    @endif
+</div>
+
+<!-- Модальное окно для отзыва -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark">Оставить отзыв</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('reviews.store', $product->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Ваша оценка</label>
+                        <div class="rating-stars">
+                            @for($i = 5; $i >= 1; $i--)
+                                <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}">
+                                <label for="star{{ $i }}">★</label>
+                            @endfor
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Комментарий</label>
+                        <textarea name="comment" class="form-control rounded-4" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Фото (макс. 3)</label>
+                        <input type="file" name="photos[]" class="form-control" multiple accept="image/*">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-warning">Отправить отзыв</button>
+                </div>
+            </form>
+        </div>
     </div>
-    </div>
+</div>
 
   @endsection

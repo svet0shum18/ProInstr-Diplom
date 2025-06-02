@@ -101,6 +101,7 @@ ul.social-icons a:hover {
   font-weight: bold;
   padding-right: 0;
 }
+
 .dropdown-menu {
   border: none;
   -webkit-box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.5); 
@@ -1146,6 +1147,68 @@ body.modal-open {
       border-radius: 8px;
       padding: 10px;
     }
+
+
+    /* Стили для звезд рейтинга */
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-stars input {
+    display: none;
+}
+
+.rating-stars label {
+    font-size: 24px;
+    color: #ddd;
+    cursor: pointer;
+    padding: 0 3px;
+}
+
+.rating-stars input:checked ~ label,
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: #ffc107;
+}
+
+/* Стили для отзывов */
+.review-item {
+    background-color: #f9f9f9;
+}
+
+.review-photos img {
+    transition: transform 0.3s;
+}
+
+.review-photos img:hover {
+    transform: scale(1.05);
+}
+
+
+.rating-edit {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.rating-edit input {
+    display: none;
+}
+
+.rating-edit label {
+    font-size: 1.8rem;
+    color: #ddd;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.rating-edit input:checked ~ label,
+.rating-edit label:hover,
+.rating-edit label:hover ~ label {
+    color: #ffc107;
+}
 
     
     

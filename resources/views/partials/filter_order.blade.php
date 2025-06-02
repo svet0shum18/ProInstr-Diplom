@@ -1,7 +1,7 @@
 <div class="card-filter mt-4">
   <h2 class="zag-section">Фильтр заказов</h2>
   <div class="card profile-card">
-    <form action="{{ route('order.orderuser') }}" method="GET" id="ordersFilterForm">
+    <form action="{{ route('order.index') }}" method="GET" id="ordersFilterForm">
       <div style="padding: 20px 30px;">
         <label class="form-label fw-bold d-block mb-2 h5">Статус заказа</label>
         
@@ -85,7 +85,7 @@
       <div class="d-grid gap-2" style="padding: 0 30px 20px;">
         <button type="submit" class="btn-go">Применить</button>
         @if(request()->has('status') || request()->has('period'))
-          <a href="{{ route('order.orderuser') }}" class="btn btn-outline-secondary rounded-pill">Сбросить</a>
+          <a href="{{ route('order.index') }}" class="btn btn-outline-secondary rounded-pill">Сбросить</a>
         @endif
       </div>
     </form>
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(formData);
             
             // AJAX-запрос
-            const response = await fetch(`{{ route('order.orderuser') }}?${params}`);
+            const response = await fetch(`{{ route('order.index') }}?${params}`);
             const html = await response.text();
             
             // Обновляем контент
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ordersContainer.innerHTML = doc.querySelector('.col-md-9').innerHTML;
             
             // Обновляем URL без перезагрузки
-            history.pushState({}, '', `{{ route('order.orderuser') }}?${params}`);
+            history.pushState({}, '', `{{ route('order.index') }}?${params}`);
             
             // Инициализируем обработчики для пагинации
             initPagination();
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обработка кнопки "Сбросить"
     document.querySelector('.btn-reset-filter')?.addEventListener('click', async function(e) {
         e.preventDefault();
-        window.location.href = "{{ route('order.orderuser') }}";
+        window.location.href = "{{ route('order.index') }}";
     });
     
     // Обработка кнопки "Назад" в браузере
