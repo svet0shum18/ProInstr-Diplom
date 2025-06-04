@@ -96,6 +96,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/waterheater', [ProductController::class, 'showWaterheater'])->name('products.waterheaters');
     // Обогреватели
     Route::get('/heater', [ProductController::class, 'showHeater'])->name('products.heaters');
+     // Вентиляторы
+    Route::get('/fan', [ProductController::class, 'showFan'])->name('products.fan');
+     // Тепловые пушки
+    Route::get('/heatguns', [ProductController::class, 'showHeatguns'])->name('products.heatguns');
+
+    //-------------------------------------------Насосное оборудование------------------------------------
+    // Насосы
+    Route::get('/pump', [ProductController::class, 'showPump'])->name('products.pump');
+    //-------------------------------------------Ручные инструменты------------------------------------
+    // Набор инструментов
+    Route::get('/tools', [ProductController::class, 'showTools'])->name('products.tools');
+    // Автомобильный инструмент
+    Route::get('/autotools', [ProductController::class, 'showAutotools'])->name('products.autotools');
+    // Ящики для инструментов
+    Route::get('/toolbox', [ProductController::class, 'showToolbox'])->name('products.toolbox');
+    // Ящики для инструментов
+    Route::get('/screwdriver', [ProductController::class, 'showScrewdriver'])->name('products.screwdriver');
+    //-------------------------------------------Сварочное оборудование------------------------------------
+    // Набор инструментов
+    Route::get('/welding', [ProductController::class, 'showWelding'])->name('products.welding');
+    //-------------------------------------------Электроинструменты------------------------------------
+    // Дрели
+    Route::get('/drill', [ProductController::class, 'showDrill'])->name('products.drill');
+    // Перфораторы
+    Route::get('/puncher', [ProductController::class, 'showPuncher'])->name('products.puncher');
+    // Болгарки
+    Route::get('/bolgar', [ProductController::class, 'showBolgar'])->name('products.bolgar');
+    // Штроборезы
+    Route::get('/wallchaser', [ProductController::class, 'showWallchaser'])->name('products.wallchaser');
 
 
 

@@ -59,7 +59,7 @@
 
             <!-- Фильтр по мощности (radiobutton) -->
             <div class="filter-group mb-4">
-                <h6 class="filter-title">Мощность, л.с.</h6>
+                <h6 class="filter-title">Мощность, кВт</h6>
                 
                 <div class="form-check mb-2">
                     <input class="form-check-input" 
@@ -81,7 +81,7 @@
                            value="1.5"
                            {{ request('power') == '1.5' ? 'checked' : '' }}>
                     <label class="form-check-label" for="power-1.5">
-                        До 1.5 л.с.
+                        До 1.5 кВт
                     </label>
                 </div>
                 
@@ -93,7 +93,7 @@
                            value="2.5"
                            {{ request('power') == '2.5' ? 'checked' : '' }}>
                     <label class="form-check-label" for="power-2.5">
-                        1.5-2.5 л.с.
+                        1.5-2.5 кВт
                     </label>
                 </div>
                 
@@ -105,7 +105,7 @@
                            value="3.5"
                            {{ request('power') == '3.5' ? 'checked' : '' }}>
                     <label class="form-check-label" for="power-3.5">
-                        2.5-3.5 л.с.
+                        2.5-3.5 кВт
                     </label>
                 </div>
                 
@@ -117,7 +117,7 @@
                            value="5"
                            {{ request('power') == '5' ? 'checked' : '' }}>
                     <label class="form-check-label" for="power-5">
-                        Более 3.5 л.с.
+                        Более 3.5 кВт
                     </label>
                 </div>
             </div>

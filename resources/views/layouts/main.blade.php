@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title', 'ПроИнструмент')</title>
+  <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}" type="image/x-icon">
+
   <!-- BOOTSTRAP -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -149,8 +151,8 @@
                         <li><a class="dropdown-item" href="{{ route('products.conditioners') }}">Кондиционеры</a></li>
                         <li><a class="dropdown-item" href="{{ route('products.waterheaters') }}">Водонагреватели</a></li>
                         <li><a class="dropdown-item" href="{{ route('products.heaters') }}">Обогреватели</a></li>
-                        <li><a class="dropdown-item" href="#">Вентеляторы</a></li>
-                        <li><a class="dropdown-item" href="#">Тепловые пушки</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.fan') }}">Вентиляторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.heatguns') }}">Тепловые пушки</a></li>
                     </ul>
                   </li>
                     <li class="dropdown-submenu position-relative">
@@ -159,10 +161,10 @@
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
                     <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
-                        <li><a class="dropdown-item" href="#">Центробежные насосы</a></li>
-                        <li><a class="dropdown-item" href="#">Винтовые насосы</a></li>
-                        <li><a class="dropdown-item" href="#">Вибрационные насосы</a></li>
-                        <li><a class="dropdown-item" href="#">Криогенные насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Центробежные насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Винтовые насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Вибрационные насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Криогенные насосы</a></li>
                     </ul>
                 </li>
                 <li class="dropdown-submenu position-relative">
@@ -171,11 +173,10 @@
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
                     <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
-                        <li><a class="dropdown-item" href="#">Наборы инструментов</a></li>
-                        <li><a class="dropdown-item" href="#">Автомобильный инструмент</a></li>
-                        <li><a class="dropdown-item" href="#">Ящики для инструментов</a></li>
-                        <li><a class="dropdown-item" href="#">Лопаты</a></li>
-                        <li><a class="dropdown-item" href="#">Отвертки</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.tools') }}">Наборы инструментов</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.autotools') }}">Автомобильный инструмент</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.toolbox') }}">Ящики для инструментов</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.screwdriver') }}">Отвертки</a></li>
                     </ul>
                 </li>
                 <li class="dropdown-submenu position-relative">
@@ -184,11 +185,11 @@
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
                     <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
-                        <li><a class="dropdown-item" href="#">Дуговая сварка</a></li>
-                        <li><a class="dropdown-item" href="#">Контактная сварка</a></li>
-                        <li><a class="dropdown-item" href="#">Газопламенная сварка</a></li>
-                        <li><a class="dropdown-item" href="#">Холодная сварка</a></li>
-                        <li><a class="dropdown-item" href="#">Лазерная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Дуговая сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Контактная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Газопламенная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Холодная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Лазерная сварка</a></li>
                     </ul>
                 </li>
                       <li class="dropdown-submenu position-relative">
@@ -197,11 +198,10 @@
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
                     <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
-                        <li><a class="dropdown-item" href="#">Дрели</a></li>
-                        <li><a class="dropdown-item" href="#">Перфораторы</a></li>
-                        <li><a class="dropdown-item" href="#">Шуруповерты</a></li>
-                        <li><a class="dropdown-item" href="#">Болгарки</a></li>
-                        <li><a class="dropdown-item" href="#">Штроборезы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.drill') }}">Дрели</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.puncher') }}">Перфораторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.bolgar') }}">Болгарки</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.wallchaser') }}">Штроборезы</a></li>
                     </ul>
                 </li>
                   </ul>

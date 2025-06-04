@@ -113,7 +113,7 @@
         </div>
         <div class="spec-item">
         <span class="spec-name">Мощность:</span>
-        <span class="spec-value">{{ $product->power }} л.с</span>
+        <span class="spec-value">{{ $product->power }} кВт</span>
         </div>
       </div>
       <div class="col-md-6">

@@ -488,6 +488,821 @@ class ProductController extends Controller
         return view('products.heater', compact('products', 'totalCount', 'brands'));
     }
 
+    //Вентилятор
+    public function showFan(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Вентиляторы'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Вентиляторы'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Вентиляторы'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Вентиляторы'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.fan', compact('products', 'totalCount', 'brands'));
+    }
+    //Тепловые пушки
+    public function showHeatguns(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Тепловые пушки'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Тепловые пушки'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Тепловые пушки'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Тепловые пушки'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.heatguns', compact('products', 'totalCount', 'brands'));
+    }
+
+    //------------------------------------------------НАСОСНОЕ ОБОРУДОВАНИЕ----------------------------------------
+    //Центробежные насосы
+    public function showPump(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Центробежные насосы'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Центробежные насосы'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Центробежные насосы'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Центробежные насосы'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.pump', compact('products', 'totalCount', 'brands'));
+    }
+    //------------------------------------------------РУЧНЫЕ ИНСТРУМЕНТЫ----------------------------------------
+    //Наборы инсттрументов
+    public function showTools(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Набор инструментов'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Набор инструментов'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Набор инструментов'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Набор инструментов'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.tools', compact('products', 'totalCount', 'brands'));
+    }
+
+    //Наборы инсттрументов
+    public function showAutotools(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Автомобильный инструмент'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Автомобильный инструмент'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Автомобильный инструмент'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Автомобильный инструмент'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.autotools', compact('products', 'totalCount', 'brands'));
+    }
+
+    //Ящики для инструментов
+    public function showToolbox(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Ящики для инструментов'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Ящики для инструментов'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Ящики для инструментов'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Ящики для инструментов'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.toolbox', compact('products', 'totalCount', 'brands'));
+    }
+
+    //Отвертки
+    public function showScrewdriver(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Отвертки'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Отвертки'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Отвертки'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Отвертки'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.screwdriver', compact('products', 'totalCount', 'brands'));
+    }
+    //Сварка
+    public function showWelding(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Дуговая сварка'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Дуговая сварка'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Дуговая сварка'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Дуговая сварка'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.welding', compact('products', 'totalCount', 'brands'));
+    }
+    //Перфораторы
+    public function showPuncher(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Перфораторы'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Перфораторы'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Перфораторы'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Перфораторы'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.puncher', compact('products', 'totalCount', 'brands'));
+    }
+    //Сварка
+    public function showDrill(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Дрели'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Дрели'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Дрели'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Дрели'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.drill', compact('products', 'totalCount', 'brands'));
+    }
+    //Сварка
+    public function showBolgar(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Болгарки'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Болгарки'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Болгарки'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Болгарки'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.bolgar', compact('products', 'totalCount', 'brands'));
+    }
+    //Сварка
+    public function showWallchaser(Request $request)
+    {
+        $query = Product::whereHas('toolType', fn($q) => $q->where('name', 'Штроборезы'))->with('brand');
+        ;
+
+        $brands = Brand::whereHas('products', function ($query) {
+            $query->whereHas('toolType', fn($q) => $q->where('name', 'Штроборезы'));
+        })->orderBy('name')->get();
+
+        // Фильтр по цене
+        if ($request->price_min) {
+            $query->where('price', '>=', $request->price_min);
+        }
+        if ($request->price_max) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+
+        // Фильтр по бренду
+        if ($request->filled('brand')) {
+            $query->whereHas('brand', function ($q) use ($request) {
+                $q->where('name', $request->brand);
+            });
+        }
+
+        // Фильтр по мощности
+        if ($request->power) {
+            $power = (float) $request->power;
+            if ($power == 1.5) {
+                $query->where('power', '<=', 1.5);
+            } elseif ($power == 5) {
+                $query->where('power', '>', 3.5);
+            } else {
+                $query->whereBetween('power', [
+                    $power - 1,
+                    $power
+                ]);
+            }
+        }
+
+        // Фильтр по весу
+        if ($request->weight) {
+            $weight = (float) $request->weight;
+            if ($weight == 4) {
+                $query->where('weight', '<=', 4);
+            } elseif ($weight == 7) {
+                $query->where('weight', '>', 6);
+            } else {
+                $query->whereBetween('weight', [
+                    $weight - 1,
+                    $weight
+                ]);
+            }
+        }
+        $priceRange = [
+            'min' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Штоборезы'))->min('price'),
+            'max' => Product::whereHas('toolType', fn($q) => $q->where('name', 'Штоборезы'))->max('price')
+        ];
+
+        // Получаем общее количество после всех фильтров
+        $totalCount = $query->count();
+
+        $products = $query->paginate(12)->appends($request->query());
+
+        return view('products.wallchaser', compact('products', 'totalCount', 'brands'));
+    }
+
+
+
+
+
     public function add(Request $request, $id)
     {
         // Получаем товар по ID
