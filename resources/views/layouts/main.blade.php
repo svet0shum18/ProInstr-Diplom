@@ -223,7 +223,7 @@
             </span>
           @endauth
                 </a>
-                <a class="nav-link" href="#"><i class="fa-solid fa-circle-question fa-lg"></i></a>
+                <a class="nav-link" href="https://disk.yandex.ru/i/mW35xR0-abQ_rA" target="_blank" title="Руководство пользователя"><i class="fa-solid fa-circle-question fa-lg"></i></a>
               </div>
             </div>
           </div>
@@ -330,10 +330,11 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('assets/js/main.js') }}"></script>
   <script src="{{ asset('assets/js/order.js') }}"></script>
   <script src="{{ asset('assets/js/cart.js') }}"></script>
-  <!-- В конце body, перед закрывающим тегом -->
+  
 
 </body>
 

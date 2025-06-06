@@ -77,7 +77,7 @@ class UserController extends Controller
     }
 
     public function destroy(Request $request)
-{
+    {
     $request->validate([
         'password' => ['required', 'current_password'],
     ]);
@@ -92,7 +92,7 @@ class UserController extends Controller
     $request->session()->regenerateToken();
 
     return redirect('/')->with('status', 'Ваш аккаунт успешно удален.');
-}
+    }
 
 
     public function forgotPasswordStore(Request $request)

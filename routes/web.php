@@ -14,6 +14,7 @@ use App\Http\Controllers\OneCExchangeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Models\Product;
+use App\Http\Controllers\FeedbackController;
 
 
 
@@ -46,31 +47,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/order', [OrderController::class, 'store'])->name('order.store');
     Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
     Route::get('/dashboard/orders', [OrderController::class, 'index'])->name('order.index');
-
-    // ПРОФИЛЬ ЗАКАЗЫ
-    // Просмотр заказа
-    Route::get('dashboard/orders/{order}', [OrderController::class, 'show'])->name('order.show');
-    // Удаление заказа
-    Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
-
-    //Просмотр отзывов
-    Route::get('/dashboard/reviews', [ReviewController::class, 'userReviews'])->name('user.reviews');
-    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
-    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
-
-
-    // СОХРАНЕНИЕ АДРЕСА ДОСТАВКИ
-    Route::get('/get-saved-delivery-data', [OrderController::class, 'getLast'])->name('delivery.last');
-
-
-    Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
-    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-
-    // ИЗБАРННОЕ
-    Route::post('/favorite/{product}', [FavoriteController::class, 'addFavorite'])->name('favorite.add');
-    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
-    Route::delete('/favorite/{product}', [FavoriteController::class, 'remove'])->name('favorite.remove');
-
 
     // ------------------------------------------ТОВАРЫ-----------------------------------------------------
 
@@ -126,21 +102,100 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Штроборезы
     Route::get('/wallchaser', [ProductController::class, 'showWallchaser'])->name('products.wallchaser');
 
+    // ------------------------------------------ОТЗЫВЫ-----------------------------------------------------
+    Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+
+    // ПРОФИЛЬ ЗАКАЗЫ
+    // Просмотр заказа
+    Route::get('dashboard/orders/{order}', [OrderController::class, 'show'])->name('order.show');
+    // Удаление заказа
+    Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
+
+    //Просмотр отзывов
+    Route::get('/dashboard/reviews', [ReviewController::class, 'userReviews'])->name('user.reviews');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+
+
+    // СОХРАНЕНИЕ АДРЕСА ДОСТАВКИ
+    Route::get('/get-saved-delivery-data', [OrderController::class, 'getLast'])->name('delivery.last');
+
+
+    Route::post('/cart/update/{id}', [CartController::class, 'updateQuantity'])->name('cart.update');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+    // ИЗБАРННОЕ
+    Route::post('/favorite/{product}', [FavoriteController::class, 'addFavorite'])->name('favorite.add');
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+    Route::delete('/favorite/{product}', [FavoriteController::class, 'remove'])->name('favorite.remove');
+
+    // ОБРАНАЯ СВЗЯЬ
+    Route::post('/feedback',action: [FeedbackController::class,'send'])->name('feedback.send');
 
 
     
 
 
+});
 
+// ------------------------------------------ТОВАРЫ ДЛЯ ВСЕХ-----------------------------------------------------
 
+    // Поиск товаров
+    Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+    Route::get('/brand/{id}', [ProductController::class, 'byBrand'])->name('products.brands');
+
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+
+    //-------------------------------------------Бензоинструменты----------------------------------------------
+    // Бензопилы
+    Route::get('/benzopily', [ProductController::class, 'showChainsaws'])->name('products.chainsaw');
+    //Генераторы
+    Route::get('/generators', [ProductController::class, 'showGenerator'])->name('products.generator');
+    //Бензорезы
+    Route::get('/benzorezy', [ProductController::class, 'showBenzorez'])->name('products.benzorez');
+    //Мотопомпы
+    Route::get('/motopomp', [ProductController::class, 'showPomp'])->name('products.pomp');
+    //-------------------------------------------Климатическое оборудование------------------------------------
+    // Кондиционеры
+    Route::get('/conditioners', [ProductController::class, 'showConditioners'])->name('products.conditioners');
+    // Кондиционеры
+    Route::get('/waterheater', [ProductController::class, 'showWaterheater'])->name('products.waterheaters');
+    // Обогреватели
+    Route::get('/heater', [ProductController::class, 'showHeater'])->name('products.heaters');
+     // Вентиляторы
+    Route::get('/fan', [ProductController::class, 'showFan'])->name('products.fan');
+     // Тепловые пушки
+    Route::get('/heatguns', [ProductController::class, 'showHeatguns'])->name('products.heatguns');
+
+    //-------------------------------------------Насосное оборудование------------------------------------
+    // Насосы
+    Route::get('/pump', [ProductController::class, 'showPump'])->name('products.pump');
+    //-------------------------------------------Ручные инструменты------------------------------------
+    // Набор инструментов
+    Route::get('/tools', [ProductController::class, 'showTools'])->name('products.tools');
+    // Автомобильный инструмент
+    Route::get('/autotools', [ProductController::class, 'showAutotools'])->name('products.autotools');
+    // Ящики для инструментов
+    Route::get('/toolbox', [ProductController::class, 'showToolbox'])->name('products.toolbox');
+    // Ящики для инструментов
+    Route::get('/screwdriver', [ProductController::class, 'showScrewdriver'])->name('products.screwdriver');
+    //-------------------------------------------Сварочное оборудование------------------------------------
+    // Набор инструментов
+    Route::get('/welding', [ProductController::class, 'showWelding'])->name('products.welding');
+    //-------------------------------------------Электроинструменты------------------------------------
+    // Дрели
+    Route::get('/drill', [ProductController::class, 'showDrill'])->name('products.drill');
+    // Перфораторы
+    Route::get('/puncher', [ProductController::class, 'showPuncher'])->name('products.puncher');
+    // Болгарки
+    Route::get('/bolgar', [ProductController::class, 'showBolgar'])->name('products.bolgar');
+    // Штроборезы
+    Route::get('/wallchaser', [ProductController::class, 'showWallchaser'])->name('products.wallchaser');
 
     // ------------------------------------------ОТЗЫВЫ-----------------------------------------------------
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
-
-
-
-});
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [UserController::class, 'create'])->name('register');//показ формы регистрации
@@ -161,11 +216,7 @@ Route::middleware('guest')->group(function () {
     })->name('password.reset');
 
     Route::post('reset-password', [UserController::class, 'resetPasswordUpdate'])->name('password.update');
-
-
 });
-
-
 
 Route::middleware('auth')->group(function () {
 

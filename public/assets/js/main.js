@@ -1,6 +1,6 @@
 
   let currentIndex = 0;
-  const slides = document.querySelectorAll('.slide');
+  const slides = document.querySelectorAll('.slide-intro');
   const slidesContainer = document.querySelector('.slides');
   const totalSlides = slides.length;
   let slideInterval = setInterval(nextSlide, 3000); // авто
@@ -28,6 +28,8 @@
   document.querySelector('.slider').addEventListener('mouseleave', () => {
     slideInterval = setInterval(nextSlide, 3000);
   });
+
+  console.log(slides.length)
 
   // Инициализация меню
     document.addEventListener('DOMContentLoaded', function() {
@@ -303,3 +305,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+
+    // Показываем индикатор загрузки
+    Swal.fire({
+        title: 'Отправка...',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                'Accept': 'application/json' // Важно для обработки ошибок JSON
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            // Обработка ошибок валидации
+            let errorMessages = [];
+            if (data.errors) {
+                for (const field in data.errors) {
+                    errorMessages.push(data.errors[field].join('<br>'));
+                }
+            } else {
+                errorMessages.push(data.message || 'Произошла ошибка');
+            }
+
+            throw new Error(errorMessages.join('<br>'));
+        }
+
+        // Успешная отправка
+        Swal.fire({
+            icon: 'success',
+            title: 'Успех!',
+            html: data.message,
+            confirmButtonColor: '#3085d6',
+        });
+        form.reset();
+
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Ошибка!',
+            html: error.message,
+            confirmButtonColor: '#d33',
+        });
+    }
+});

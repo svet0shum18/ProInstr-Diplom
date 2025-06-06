@@ -9,9 +9,9 @@
     <section class="welcome-page mt-4">
       <div class="slider">
       <div class="slides">
-        <img src="assets/img/slider/img1.png" class="slide" alt="img1">
-        <img src="assets/img/slider/img2.png" class="slide" alt="img2">
-        <img src="assets/img/slider/img3.png" class="slide" alt="img3">
+        <img src="assets/img/slider/img1.png" class="slide-intro" alt="img1">
+        <img src="assets/img/slider/img2.png" class="slide-intro" alt="img2">
+        <img src="assets/img/slider/img3.png" class="slide-intro" alt="img3">
       </div>
       <button class="prev" onclick="prevSlide()">&#10094;</button>
       <button class="next" onclick="nextSlide()">&#10095;</button>
@@ -140,37 +140,37 @@
       <!-- Слайдер брендов -->
       <div id="brandSlider" class="d-flex overflow-hidden mt-4" style="scroll-behavior: smooth; flex-wrap: nowrap;">
         <!-- Бренды -->
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/aeg.jpg" alt="aeg">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/fubag.jpg" alt="fubag">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/gigant.jpg" alt="Brand 3">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/inforce.jpg" alt="Brand 4">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/kbt.jpg" alt="Brand 5">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/kendo.jpg" alt="Brand 6">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/keyang.jpg" alt="Brand 7">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/makita.jpg" alt="Brand 8">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/patriot.jpg" alt="Brand 9">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/qbrick.jpg" alt="Brand 10">
         </a>
-        <a href="#" class="brand-card flex-shrink-0 text-center mx-2">
+        <a href="#" class="brand-card flex-shrink-0 text-center mx-2" style="cursor: default;">
         <img src="assets/img/brands/ryobi.jpg" alt="Brand 11">
         </a>
       </div>
@@ -236,21 +236,44 @@
       <h2 class="zag-section mt-4">Отвечаем на возникшие вопросы!</h2>
       <div class="row">
       <div class="col-md-6 mt-3">
-        <form action="" method="POST">
+        <form action="{{ route('feedback.send') }}" method="POST" id="feedbackForm">
+          @csrf
         <div class="card profile-card" style="padding-left: 30px; padding-right: 30px;">
           <div class="mb-4 mt-4">
           <label for="email" class="form-label fw-bold h5">Введите ваш email</label>
-          <input type="email" class="form-control rounded-4" id="email" placeholder="name@example.com">
+          <input type="email" class="form-control rounded-4" id="email" placeholder="name@example.com" name="email" required>
           </div>
           <div class="mb-4 mt-2">
           <label for="message" class="form-label fw-bold h5">Введите ваш вопрос</label>
-          <textarea class="form-control rounded-4" id="message" rows="3"></textarea>
+          <textarea class="form-control rounded-4" id="message" rows="3" name="message" required></textarea>
           </div>
           <div class="mb-4">
           <button type="submit" class="btn-go w-80">Отправить сообщение</button>
           </div>
         </div>
         </form>
+        
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Успех!',
+        text: '{{ session('success') }}',
+        confirmButtonColor: '#3085d6',
+    });
+</script>
+@endif
+
+@if($errors->any())
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Ошибка!',
+        html: '{!! implode('<br>', $errors->all()) !!}',
+        confirmButtonColor: '#d33',
+    });
+</script>
+@endif
       </div>
       <div class="col-md-6">
 

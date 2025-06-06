@@ -106,16 +106,87 @@
             <div class="col-md-3">
               <div class="header-middle_nav d-flex align-items-center justify-content-between h-100 w-100">
                 <div class="dropdown">
-                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="btn-dropdown">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" id="btn-dropdown">
                     Каталог
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Бензо-инструменты</a></li>
-                    <li><a class="dropdown-item" href="#">Климатическое оборудование</a></li>
-                    <li><a class="dropdown-item" href="#">Насосное оборудование</a></li>
-                    <li><a class="dropdown-item" href="#">Ручные и авто-инструменты</a></li>
-                    <li><a class="dropdown-item" href="#">Сварочное оборудование</a></li>
-                    <li><a class="dropdown-item" href="#">Электро-инструменты</a></li>
+                    <!-- Бензо-инструменты -->
+                <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Бензо-инструменты
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="{{ route('products.chainsaw') }}">Бензопилы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.generator') }}">Генераторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.benzorez') }}">Бензорезы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.generator') }}">Бензогенераторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pomp') }}">Мотопомпы</a></li>
+                    </ul>
+                </li>
+                    <li class="dropdown-submenu position-relative">
+                      <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                      Климатическое оборудование
+                      <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                      <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="{{ route('products.conditioners') }}">Кондиционеры</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.waterheaters') }}">Водонагреватели</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.heaters') }}">Обогреватели</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.fan') }}">Вентиляторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.heatguns') }}">Тепловые пушки</a></li>
+                    </ul>
+                  </li>
+                    <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Насосное оборудование
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Центробежные насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Винтовые насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Вибрационные насосы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.pump') }}">Криогенные насосы</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Ручные и авто-инструменты
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="{{ route('products.tools') }}">Наборы инструментов</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.autotools') }}">Автомобильный инструмент</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.toolbox') }}">Ящики для инструментов</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.screwdriver') }}">Отвертки</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Сварочное оборудование
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Дуговая сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Контактная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Газопламенная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Холодная сварка</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.welding') }}">Лазерная сварка</a></li>
+                    </ul>
+                </li>
+                      <li class="dropdown-submenu position-relative">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                        Электро-инструменты
+                        <span class="dropdown-arrow" style="margin-right: 10px">></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-submenu" style="border-left: none;">
+                        <li><a class="dropdown-item" href="{{ route('products.drill') }}">Дрели</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.puncher') }}">Перфораторы</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.bolgar') }}">Болгарки</a></li>
+                        <li><a class="dropdown-item" href="{{ route('products.wallchaser') }}">Штроборезы</a></li>
+                    </ul>
+                </li>
                   </ul>
                 </div>
                 <a class="nav-link" href="{{ route('cart.index') }}">Корзина</a>
