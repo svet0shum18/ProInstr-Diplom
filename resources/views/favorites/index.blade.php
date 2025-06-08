@@ -16,7 +16,7 @@
                 @include('partials.profile_menu')
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-">
                 <div class="d-flex justify-content-start gap-4 w-100">
                     @forelse($favorites as $favorite)
                         @php $product = $favorite->product; @endphp

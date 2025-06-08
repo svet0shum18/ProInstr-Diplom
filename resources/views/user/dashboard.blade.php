@@ -3,40 +3,41 @@
 @section('title', 'Личный кабинет')
 
 @section('content')
-    <div class="body_container">
+    <div class="container-fluid body_container">
         <!-- Хлебные крошки -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <!-- <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Профиль</a></li> -->
                 @if(isset($breadcrumb))
                     <li class="breadcrumb-item active" aria-current="page">{{ $breadcrumb }}</li>
                 @endif
             </ol>
         </nav>
+        
         <h2 class="zag-section mt-4">Настройки профиля</h2>
+        
         <div class="row">
-            <div class="col-md-3">
-            @include('partials.profile_menu')
+       
+            <div class="col-12 col-md-3 mb-3 mb-md-0">
+                @include('partials.profile_menu')
             </div>
            
-
-
-            <!-- Основное содержимое -->
-            <div class="col-md-9">
+         
+            <div class="col-12 col-md-9">
                 <div class="card profile-card">
                     <div class="card-body">
-                        <div class="profile-info">
+                        <div class="profile-info text-center text-md-start">
                             <h3>{{ Auth::user()->name }}</h3>
                             <p class="text-muted">Дата регистрации: {{ Auth::user()->created_at->format('d.m.Y') }}</p>
                         </div>
+                        
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6 mb-3 mb-md-0">
                                 <label class="form-label">Логин</label>
                                 <input type="text" class="form-control" value="{{ Auth::user()->name }}" id="name-input"
                                     placeholder="Введите ваше имя">
                                 <div id="name-status" class="mt-2 small"></div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Электронная почта</label>
                                     <input type="text" class="form-control" value="{{ Auth::user()->email }}">
@@ -45,25 +46,22 @@
                             </div>
                         </div>
 
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between">
+                        <!-- Кнопки действий - на мобильных будут вертикально -->
+                        <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
                             <!-- Кнопка удаления профиля с модальным окном -->
-                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-danger order-2 order-md-1" data-bs-toggle="modal"
                                 data-bs-target="#deleteProfileModal">
                                 Удалить профиль
                             </button>
 
                             <!-- Форма выхода -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="order-1 order-md-2">
                                 @csrf
-                                <button type="submit" class="btn btn-secondary">Выйти</button>
+                                <button type="submit" class="btn btn-secondary w-100">Выйти</button>
                             </form>
                         </div>
 
+                        <!-- Модальное окно удаления профиля -->
                         <div class="modal fade" id="deleteProfileModal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -99,6 +97,7 @@
                 </div>
             </div>
         </div>
+        
         <script>
             document.getElementById('name-input').addEventListener('change', function () {
                 const newName = this.value;
@@ -141,7 +140,6 @@
                         statusElement.className = 'mt-2 small text-danger';
                     });
             });
-
 
             document.addEventListener('DOMContentLoaded', function () {
                 // Инициализация модального окна
