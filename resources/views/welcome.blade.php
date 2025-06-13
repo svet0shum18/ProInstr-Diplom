@@ -182,8 +182,9 @@
     </section><!-- ./Section brands -->
 
     <section class="news-section">
-      <div class="body_container mt-4">
-      <div class="news-header mt-4"> 
+      <div class="body-container mt-4 w-100">
+      <div class="news-header"> 
+        <h2 class="zag-section-news d-none">Все новости</h2>
         <div class="news-links">
            <a href="#" class="news-link active" data-category="all">Все записи</a>
         @foreach($categories as $category)
@@ -198,9 +199,9 @@
       <div class="carousel-inner">
         @foreach($news->chunk(3) as $chunk)
         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-          <div class="row g-4 d-flex flex-nowrap mt-2"> <!-- Добавлен flex-nowrap -->
+          <div class="row g-4 d-flex flex-nowrap mt-2">
             @foreach($chunk as $item)
-            <div class="col-md-4 news-item flex-shrink-0" data-category="{{ $item->category_id }}"> <!-- Добавлен flex-shrink-0 -->
+            <div class="col-md-4 news-item flex-shrink-0" data-category="{{ $item->category_id }}"> 
               <div class="card h-100 border-none">
                 <img src="{{ 'assets/img/news/' . $item->img }}" class="card-img-top" alt="{{ $item->title }}">
                 <div class="card-body">

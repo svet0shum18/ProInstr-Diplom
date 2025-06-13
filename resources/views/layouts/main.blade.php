@@ -130,7 +130,7 @@
                   <ul class="dropdown-menu">
                     <!-- Бензо-инструменты -->
                 <li class="dropdown-submenu position-relative">
-                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('mobil.benzo') }}">
                         Бензо-инструменты
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
@@ -143,7 +143,7 @@
                     </ul>
                 </li>
                     <li class="dropdown-submenu position-relative">
-                      <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                      <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('mobil.climat') }}">
                       Климатическое оборудование
                       <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
@@ -156,7 +156,7 @@
                     </ul>
                   </li>
                     <li class="dropdown-submenu position-relative">
-                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('mobil.pumps') }}">
                         Насосное оборудование
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
@@ -168,7 +168,7 @@
                     </ul>
                 </li>
                 <li class="dropdown-submenu position-relative">
-                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('mobil.hands') }}">
                         Ручные и авто-инструменты
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
@@ -180,7 +180,7 @@
                     </ul>
                 </li>
                 <li class="dropdown-submenu position-relative">
-                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('mobil.welding') }}">
                         Сварочное оборудование
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>
@@ -193,7 +193,7 @@
                     </ul>
                 </li>
                       <li class="dropdown-submenu position-relative">
-                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="{{ route('mobil.electro') }}">
                         Электро-инструменты
                         <span class="dropdown-arrow" style="margin-right: 10px">></span>
                     </a>

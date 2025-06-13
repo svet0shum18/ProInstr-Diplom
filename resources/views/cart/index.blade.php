@@ -94,7 +94,7 @@
                                                 <div class="d-flex align-items-center me-3">
                                                     <i class="fa-solid fa-truck fa-2xl" style="color: #3d464d;"></i>
                                                 </div>
-                                                <div class="align-self-center"> <!-- Вертикальное центрирование текста -->
+                                                <div class="align-self-center" id="text-cur"> <!-- Вертикальное центрирование текста -->
                                                     <h5 class="card-title mb-1">Доставка курьером</h5>
                                                     <p class="card-text mb-0">завтра, от 290 ₽</p>
                                                 </div>
@@ -107,106 +107,95 @@
                                 <!-- Модальное окно с формой доставки -->
 
                                 <div class="modal fade" id="courierModal" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="card-title">Куда доставить товар?</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="deliveryForm">
-                                                    @csrf
-                                                    <!-- Адрес -->
-                                                    <div class="mb-4">
-                                                        <h6 class="mb-3 fw-semibold">Адрес доставки</h6>
-                                                        <div class="row g-3">
-                                                            <div class="col-md-6">
-                                                                <label for="city" class="form-label">Город/Населенный
-                                                                    пункт</label>
-                                                                <input type="text" class="form-control" id="city" required>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="street" class="form-label">Улица</label>
-                                                                <input type="text" class="form-control" id="street" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row g-3 mt-2">
-                                                            <div class="col-md-3">
-                                                                <label for="house" class="form-label">Дом</label>
-                                                                <input type="text" class="form-control" id="house" required>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="apartment" class="form-label">Кв/Офис</label>
-                                                                <input type="text" class="form-control" id="apartment" required>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="card-title">Куда доставить товар?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="deliveryForm">
+                    @csrf
+                    <!-- Адрес -->
+                    <div class="mb-4">
+                        <h6 class="mb-3 fw-semibold">Адрес доставки</h6>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="city" class="form-label">Город/Населенный пункт</label>
+                                <input type="text" class="form-control" id="city" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="street" class="form-label">Улица</label>
+                                <input type="text" class="form-control" id="street" required>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-6 col-md-3">
+                                <label for="house" class="form-label">Дом</label>
+                                <input type="text" class="form-control" id="house" required>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label for="apartment" class="form-label">Кв/Офис</label>
+                                <input type="text" class="form-control" id="apartment" required>
+                            </div>
+                        </div>
+                    </div>
 
-                                                    <!-- Контактные данные -->
-                                                    <div class="mb-4">
-                                                        <h6 class="mb-3 fw-semibold">Контактные данные</h6>
-                                                        <div class="row g-3">
-                                                            <div class="col-md-6">
-                                                                <label for="fullName" class="form-label">ФИО</label>
-                                                                <input type="text" class="form-control" id="full_name" required
-                                                                    placeholder="Иванов Иван Иванович">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="phone" class="form-label">Телефон</label>
-                                                                <input type="tel" class="form-control" id="phone" required
-                                                                    placeholder="+7(999)999-99-99">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                    <!-- Контактные данные -->
+                    <div class="mb-4">
+                        <h6 class="mb-3 fw-semibold">Контактные данные</h6>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="fullName" class="form-label">ФИО</label>
+                                <input type="text" class="form-control" id="full_name" required placeholder="Иванов Иван Иванович">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="phone" class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" id="phone" required placeholder="+7(999)999-99-99">
+                            </div>
+                        </div>
+                    </div>
 
-                                                    <!-- Дата и время -->
-                                                    <div class="mb-4">
-                                                        <h6 class="mb-3 fw-semibold">Дата и время доставки</h6>
-                                                        <div class="row g-3">
-                                                            <div class="col-md-6">
-                                                                <label for="deliveryDate" class="form-label">Дата
-                                                                    доставки</label>
-                                                                <input type="date" class="form-control" id="delivery_date"
-                                                                    required value="">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="deliveryTime" class="form-label">Временной
-                                                                    интервал</label>
-                                                                <select class="form-select me-2" id="time_interval" required>
-                                                                    <option value="9-12" selected>9:00 – 12:00</option>
-                                                                    <option value="12-15">12:00 – 15:00</option>
-                                                                    <option value="15-18">15:00 – 18:00</option>
-                                                                    <option value="18-21">18:00 – 21:00</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                    <!-- Дата и время -->
+                    <div class="mb-4">
+                        <h6 class="mb-3 fw-semibold">Дата и время доставки</h6>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="deliveryDate" class="form-label">Дата доставки</label>
+                                <input type="date" class="form-control" id="delivery_date" required value="">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="deliveryTime" class="form-label">Временной интервал</label>
+                                <select class="form-select" id="time_interval" required>
+                                    <option value="9-12" selected>9:00 – 12:00</option>
+                                    <option value="12-15">12:00 – 15:00</option>
+                                    <option value="15-18">15:00 – 18:00</option>
+                                    <option value="18-21">18:00 – 21:00</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-                                                    <!-- Дополнительно -->
-                                                    <div class="mb-4">
-                                                        <h6 class="mb-3 fw-semibold">Дополнительная информация</h6>
-                                                        <div class="mb-3">
-                                                            <label for="comment" class="form-label">Комментарий к
-                                                                доставке</label>
-                                                            <textarea class="form-control" id="comment" rows="2"
-                                                                placeholder="Код домофона, номер подъезда, этаж и т.д."></textarea>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="saveAddress">
-                                                            <label class="form-check-label" for="saveAddress">Сохранить этот
-                                                                адрес для будущих заказов</label>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn-go w-70" id="confirmDeliveryBtn">Сохранить
-                                                    данные</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Дополнительно -->
+                    <div class="mb-4">
+                        <h6 class="mb-3 fw-semibold">Дополнительная информация</h6>
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Комментарий к доставке</label>
+                            <textarea class="form-control" id="comment" rows="2" placeholder="Код домофона, номер подъезда, этаж и т.д."></textarea>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="saveAddress">
+                            <label class="form-check-label" for="saveAddress">Сохранить этот адрес для будущих заказов</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-go w-100" id="confirmDeliveryBtn">Сохранить данные</button>
+            </div>
+        </div>
+    </div>
+</div>
 
                             </div>
                             <!-- Выбранный пункт самовывоза -->

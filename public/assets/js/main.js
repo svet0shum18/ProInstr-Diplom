@@ -363,3 +363,7 @@ document.getElementById('feedbackForm').addEventListener('submit', async functio
         });
     }
 });
+
+
+// АДАПТИВ ПОД ТЕЛЕФОН
+

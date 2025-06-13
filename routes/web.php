@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\NewsController;
 use App\Models\Product;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\CategoryController;
 
 
 
@@ -140,6 +141,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // ------------------------------------------ТОВАРЫ ДЛЯ ВСЕХ-----------------------------------------------------
+
+    //Категории для мобильных
+    Route::get('/category-benzo',[CategoryController::class, 'benzo'])->name('mobil.benzo');
+    Route::get('/category-klimat',[CategoryController::class, 'climat'])->name('mobil.climat');
+    Route::get('/category-pump',[CategoryController::class, 'pump'])->name('mobil.pumps');
+    Route::get('/category-hands',[CategoryController::class, 'hands'])->name('mobil.hands');
+    Route::get('/category-welding',[CategoryController::class, 'welding'])->name('mobil.welding');
+    Route::get('/category-electro',[CategoryController::class, 'electro'])->name('mobil.electro');
 
     // Поиск товаров
     Route::get('/search', [ProductController::class, 'search'])->name('products.search');

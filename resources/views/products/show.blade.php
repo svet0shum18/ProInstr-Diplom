@@ -106,7 +106,7 @@
     <div class="product-specs mt-5 ms-5">
       <h3>Характеристики</h3>
       <div class="row mt-3">
-      <div class="col-md-6 ">
+      <div class="col-md-6">
         <div class="spec-item">
         <span class="spec-name">Бренд:</span>
         <span class="spec-value">{{ $product->brand->name}}</span>
@@ -132,7 +132,7 @@
     <!-- Описание -->
     <div class="product-description mt-5 ms-5">
       <h3>Описание</h3>
-      <div class="description-content">
+      <div class="description-content" style="text-align: justify; margin-right: 60px;">
       {!! $product->full_description !!}
       </div>
     </div>

@@ -408,6 +408,8 @@ ul.navbar {
 
 /*================================= Section Brands =====================================*/
 
+
+
 .brand-card img {
   width: 210px;
   height: 100px;
@@ -1233,9 +1235,19 @@ body.modal-open {
     z-index: 1000;
   } */
 
-  .header_container, .body_container {
+  .brands {
+  display: none;
+}
+
+  .header_container {
     min-height: 100%;
-    max-width: 90%;
+    max-width: 86%;
+    margin: 0 auto;
+  }
+
+  .body_container {
+    min-height: 100%;
+    max-width: 92%;
     margin: 0 auto;
   }
 
@@ -1303,6 +1315,10 @@ body.modal-open {
   .nav-link:hover {
     color: var(--yellow-color);
   }
+
+   .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
   
 
  /* -------------------------------FOOTER-------------------------------- */
@@ -1332,8 +1348,8 @@ body.modal-open {
 
 .slide {
   flex: 0 0 100%;
-  width: 110%;
-  object-fit: fill;
+  width: 100%;
+  object-fit: cover;
 }
 
 .prev,
@@ -1369,12 +1385,18 @@ body.modal-open {
   right: 10px;
 }
 
+.aboutUs-cards {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 
 /* -----------------------------------------BRANDS---------------------------- */
 
 .brand-card img {
-  width: 200px;
-  height: 100px;
+  width: 190px;
+  height: 80px;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -1402,10 +1424,69 @@ body.modal-open {
 .product-card {
   flex: 0 1 calc(100% - 0px); /* по умолчанию на мобилках — одна на строку */
   max-width: 100%;
-  border: 1px solid #ccc;
+  border: none;
   padding: 15px;
   box-sizing: border-box;
+  
 }
+
+#mobile {
+  margin-top: 20px;
+   display: flex;
+  flex-wrap: wrap;
+}
+
+.product-title,
+.rating,
+.availability,
+.delivery-info {
+  margin-left: 20px;
+}
+
+.product-specs,
+.product-description {
+  margin-left: 20px !important;
+}
+
+.description-content {
+  text-align: justify;
+  margin-right: 20px !important;
+}
+
+.product-reviews {
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+
+}
+
+
+/* КОРЗИНА ТЕЛ */
+.card-body-order {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+
+.date-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-date {
+  width: 300px;
+  border-radius: 50px;
+}
+
+.card-text {
+  margin-left: 2px !important;
+}
+
+.card-body-txt {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 /* Кнопка "Добавить в корзину" по умолчанию скрыта */
 .add-to-cart {
@@ -1557,6 +1638,35 @@ body.modal-open {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+/* Карточка товара полная */
+ .breadcrumb {
+  display: none;
+ }
+
+
+ /* НОВОСТИ */
+
+ .news-link {
+  display: none;
+ }
+
+ .zag-section-news {
+  display: inline !important;
+ }
+
+ #newsSlider {
+  height: 520px;
+}
+
+
+.subscribe {
+  margin-top: 70px;
+}
+
+.slider {
+  display: none;
 }
 
 

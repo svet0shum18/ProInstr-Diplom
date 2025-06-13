@@ -17,7 +17,7 @@
         <span class="category">{{ $article->category->name }}</span>
     </div>
     <img src="{{ asset('assets/img/news/' . $article->img) }}" alt="{{ $article->title }}" class="mt-4 rounded-4" >
-    <div class="content mt-4 mb-4">
+    <div class="content mt-4 mb-4" style="text-align: justify;">
         {!! $article->text !!}
     </div>
     
