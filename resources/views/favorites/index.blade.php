@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-md-">
-                <div class="d-flex justify-content-start gap-4 w-100">
+                <div class="d-flex justify-content-start gap-4 w-100" id="mobile">
                     @forelse($favorites as $favorite)
                         @php $product = $favorite->product; @endphp
                         <div class="product-card" style="width: 256px;">
