@@ -34,7 +34,7 @@
             <div class=" col-6 col-sm-4">
               <div class="header-top-phone d-flex align-items-center h-100">
                 <i class="fa-solid fa-phone fa-xl"></i>
-                <a href="tel:+79243081576" class="ms-2">+7(924)-308-15-76</a>
+                <a href="tel:+79243081576" class="ms-2">+7(999)-999-99-99</a>
               </div>
             </div>
 
