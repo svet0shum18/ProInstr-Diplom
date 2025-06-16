@@ -302,7 +302,7 @@
           <div class="col-md-3 mb-4">
             <h5>Контакты</h5>
             <ul class="list-unstyled">
-              <p>+7 (924) 308-1576</p>
+              <p>+7 (999) 999-9999</p>
               <p>proinstrument@mail.ru</p>
               <p>Пн-Пт: 9:00 - 20:00</p>
             </ul>
